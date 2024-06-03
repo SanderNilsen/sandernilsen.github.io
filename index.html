@@ -1,56 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sander Nilsen | Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <header>
-        <h1>Sander Nilsen</h1>
+      <div class="header-container">
+        <div class="logo">S</div>
         <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </nav>
+      </div>
     </header>
-    
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I'm a student at Noroff, studying frontend development.</p>
-    </section>
-    
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project-card">
+
+    <main>
+      <section class="intro">
+        <div class="intro-container">
+          <div class="intro-image">
+            <img src="images/profile.png" alt="Sander Nilsen" />
+          </div>
+          <div class="intro-text">
+            <h1>Sander Nilsen</h1>
+            <p>I'm a student at Noroff, studying frontend development.</p>
+            <a href="#" class="btn">My CV</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects" id="projects">
+        <h2>Projects</h2>
+        <div class="projects-container">
+          <div class="project-card">
             <h3>RainyDays</h3>
-            <p>The Rainy Days course assignment is a simple e-commerce website for selling clothing items made with HTML, CSS and JavaScript.</p>
-            <a href="https://github.com/SanderNilsen/RainyDays" target="_blank">View on GitHub</a>
-        </div>
-        <div class="project-card">
+            <img
+            class="card-img"
+            src="images/RainyDays-Website-Design.png"
+            alt="overview of the website"
+          />
+            <p>
+              The Rainy Days course assignment is a simple e-commerce website
+              for selling clothing items made with HTML, CSS and JavaScript.
+            </p>
+            <a href="https://github.com/SanderNilsen/RainyDays" target="_blank"
+              >View on GitHub</a
+            >
+          </div>
+          <div class="project-card">
             <h3>Community Science Museum</h3>
-            <p>Noroff semester project 1, creating a website for "Community Science Museum" in HTML and CSS.</p>
-            <a href="https://github.com/SanderNilsen/Semester-Project-1" target="_blank">View on GitHub</a>
-        </div>
-        <div class="project-card">
+            <img
+            class="card-img"
+            src="images/CMS-Website-Design.png"
+            alt="overview of the website"
+          />
+            <p>
+              Noroff semester project 1, creating a website for "Community
+              Science Museum" in HTML and CSS.
+            </p>
+            <a
+              href="https://github.com/SanderNilsen/Semester-Project-1"
+              target="_blank"
+              >View on GitHub</a
+            >
+          </div>
+          <div class="project-card">
             <h3>LofotenPeaks</h3>
-            <img class="card-img" src="images/Websitedesign.png" alt="overview of the website">
-            <p>This project involves creating a custom blog website using HTML, CSS, and JavaScript, with content managed through a WordPress installation acting as a Headless CMS.</p>
-            <a href="https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen" target="_blank">View on GitHub</a>
+            <img
+              class="card-img"
+              src="images/Websitedesign.png"
+              alt="overview of the website"
+            />
+            <p>
+              This project involves creating a custom blog website using HTML,
+              CSS, and JavaScript, with content managed through a WordPress
+              installation acting as a Headless CMS.
+            </p>
+            <a
+              href="https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen"
+              target="_blank"
+              >View on GitHub</a
+            >
+          </div>
         </div>
-    </section>
-    
-    <section id="contact">
+      </section>
+
+      <section class="contact" id="contact">
         <h2>Contact Me</h2>
-        <p>Email: <a href="mailto:sander.nil@hotmail.com">sander.nil@hotmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/sandernilsen/" target="_blank">Sander Nilsen</a></p>
-    </section>
-    
+          <a href="mailto:sander.nil@hotmail.com">Mail</a>
+          <a href="https://www.linkedin.com/in/sandernilsen/" target="_blank"
+            >LinkedIn</a
+          >
+
+      </section>
+    </main>
+
     <footer>
-        <p>&copy; 2024 Sander Nilsen</p>
+      <p>&copy; 2024 Sander Nilsen</p>
     </footer>
-</body>
+  </body>
 </html>
