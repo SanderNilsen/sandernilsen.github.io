@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sander Nilsen | Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -29,7 +36,14 @@
           <div class="intro-text">
             <h1>Sander Nilsen</h1>
             <p>I'm a student at Noroff, studying frontend development.</p>
-            <a href="#" class="btn">My CV</a>
+            <button class="button">
+              <div class="button-text">
+                <i class="fa-solid fa-file"></i>
+              </div>
+              <div class="button-links">
+                <a class="button-cv" href="#cv">My CV</a>
+              </div>
+            </button>
           </div>
         </div>
       </section>
@@ -48,9 +62,19 @@
               The Rainy Days course assignment is a simple e-commerce website
               for selling clothing items made with HTML, CSS and JavaScript.
             </p>
-            <a href="https://github.com/SanderNilsen/RainyDays" target="_blank"
-              >View on GitHub</a
-            >
+            <button class="button">
+              <div class="button-text">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="button-links">
+                <a
+                  class="button-github"
+                  href="https://github.com/SanderNilsen/RainyDays"
+                  target="_blank"
+                  >View on GitHub</a
+                >
+              </div>
+            </button>
           </div>
           <div class="project-card">
             <h3>Community Science Museum</h3>
@@ -63,11 +87,20 @@
               Noroff semester project 1, creating a website for "Community
               Science Museum" in HTML and CSS.
             </p>
-            <a
-              href="https://github.com/SanderNilsen/Semester-Project-1"
-              target="_blank"
-              >View on GitHub</a
-            >
+
+            <button class="button">
+              <div class="button-text">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="button-links">
+                <a
+                  class="button-github"
+                  href="https://github.com/SanderNilsen/Semester-Project-1"
+                  target="_blank"
+                  >View on Github
+                </a>
+              </div>
+            </button>
           </div>
           <div class="project-card">
             <h3>LofotenPeaks</h3>
@@ -81,21 +114,64 @@
               CSS, and JavaScript, with content managed through a WordPress
               installation acting as a Headless CMS.
             </p>
-            <a
-              href="https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen"
-              target="_blank"
-              >View on GitHub</a
-            >
+            <button class="button">
+              <div class="button-text">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="button-links">
+                <a
+                  class="button-github"
+                  href="https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen"
+                  target="_blank"
+                  >View on GitHub</a
+                >
+              </div>
+            </button>
           </div>
         </div>
+      </section>
+      <section class="cv" id="cv">
+        <h2>CV</h2>
+        <li>Butikkmedarbeider, XXL Sport og Villmark Lade, Trondheim</li>
+        <li>
+          Servicearbeider, Elite Service Partner AS (Insider facility solution
+          AS), Svolvær
+        </li>
+        <li>Produksjonsmedarbeider, Berg Seafood AS, Laukvik</li>
+        <li>Butikkmedarbeider, Rema 1000 Jg Hansen AS, Svolvær</li>
+        <li>Produksjonsarbeider, Lofothval, Svolvær</li>
+        <li>Selger, Neras Direkte AS, Trondheim</li>
+        <li>Røykdykker, Forsvaret, Stavanger</li>
+        <li>Butikkmedarbeider, Extra Svolvær, Svolvær</li>
       </section>
 
       <section class="contact" id="contact">
         <h2>Contact Me</h2>
-        <a href="mailto:sander.nil@hotmail.com">Mail</a>
-        <a href="https://www.linkedin.com/in/sandernilsen/" target="_blank"
-          >LinkedIn</a
-        >
+
+        <button class="button">
+          <div class="button-text">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="button-links">
+            <a class="button-contact" href="mailto:sander.nil@hotmail.com"
+              >Send Mail</a
+            >
+          </div>
+        </button>
+
+        <button class="button">
+          <div class="button-text">
+            <i class="fa-brands fa-linkedin"></i>
+          </div>
+          <div class="button-links">
+            <a
+              class="button-linkedin"
+              href="https://www.linkedin.com/in/sandernilsen/"
+              target="_blank"
+              >LinkedIn</a
+            >
+          </div>
+        </button>
       </section>
     </main>
 
