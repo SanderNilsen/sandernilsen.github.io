@@ -38,6 +38,35 @@ nav ul li a {
     font-size: 25px;
 }
 
+nav a {
+    text-decoration: none;
+    color: #303032;
+    font-size: 20px;
+    position: relative;
+    padding: 20px 0px;
+    margin: 0px 20px;
+}
+  
+nav a::before {
+    transition: 200ms;
+    height: 5px;
+    content:"";
+    position: absolute;
+    background-color: #ffcc00;
+    width: 0%;
+    bottom: 10px;
+}
+  
+nav a:hover::before {
+    width: 100%;
+}  
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
 .intro {
     display: grid;
     justify-content: center;
