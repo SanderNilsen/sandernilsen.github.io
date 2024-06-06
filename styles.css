@@ -286,3 +286,50 @@ footer {
     padding: 20px;
     bottom: 0;
 }
+
+@media (max-width: 870px) {
+  
+  nav ul li a {
+    font-size: 16px;
+}
+
+.header-container {
+  padding: 20px 12px;
+}
+
+.logo {
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+header {
+  position:relative;
+}
+
+.intro-image img {
+  width: 180px;
+  height: 180px;
+  margin-right: 20px;
+}
+
+.intro-text h1 {
+  font-size: 30px;
+}
+
+.intro-text p {
+  font-size: 16px;
+}
+
+.projects-container {
+  flex-direction: column;
+}
+
+.project-card {
+  width: 300px;
+  height: 460px;
+}
+
+.cv li {
+  width: 300px;
+}
+}
