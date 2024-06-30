@@ -133,14 +133,13 @@ header {
     background-color: #121212;
     margin: 10px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows:repeat(5, 1fr);
     gap: 15px;
     width: 200px;
-    height: 425px;
+    height: 500px;
     text-align: center;
-    align-items: center;
+    justify-items: center;
 }
 
 .project-card h3 {
@@ -227,10 +226,16 @@ header {
   
   .button-cv {
     padding: 0 45px;
+    font-size: 16px;
   }
 
   .button-github {
     padding: 0 20px;
+    font-size: 16px;
+  }
+
+  .button-website {
+    padding: 0 25px;
   }
  
   .button-links .button-contact {
@@ -238,7 +243,7 @@ header {
   }
 
 .button-links .button-linkedin {
-    padding: 40px;
+    padding: 42px;
   }
   
   .button-links a {
