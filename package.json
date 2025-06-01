@@ -4,13 +4,17 @@
   "description": "## Description My portfolio, displaying my recent projects at Noroff.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "sass src/scss:dist/css",
+    "watch": "sass --watch src/scss:dist/css",
+    "start-server": "live-server"
   },
   "author": "Sander Nilsen",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.6",
     "install": "^0.13.0",
-    "npm": "^10.9.2"
+    "live-server": "^1.2.2",
+    "npm": "^10.9.2",
+    "sass": "^1.89.1"
   }
 }
