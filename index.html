@@ -8,6 +8,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sander Nilsen | Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="main.js" defer></script>
   </head>
@@ -18,7 +22,7 @@
         <ul>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#cv">CV</a></li>
-          <li><a href="#contact" class="btn">Contact</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </header>
@@ -27,8 +31,12 @@
       <!-- HERO -->
       <section id="hero" class="container hero" aria-label="Intro">
         <div>
-          <h1>Developer building fast, accessible solutions</h1>
-          <p class="lead">I'm a student at Noroff, studying frontend development.</p>
+          <h1>Turning ideas into seamless web experiences</h1>
+          <p class="lead">
+            I’m Sander Nilsen, a frontend development student at Noroff, passionate about
+            creating accessible, modern websites that combine clean code with thoughtful
+            design.
+          </p>
           <p>
             <a class="btn" href="#projects">Projects</a>
             <a class="btn" href="#cv" style="margin-left: 0.5rem">CV</a>
@@ -38,9 +46,10 @@
           <img src="images/profile-img.png" alt="Sander Nilsen" />
           <strong>Quick Facts</strong>
           <ul>
-            <li>Based in Trondheim</li>
-            <li>Frontend · UX · Prototyping</li>
-            <li>Available for projects</li>
+            <li>Trondheim, Norway</li>
+            <li>Frontend Development Student · Noroff</li>
+            <li>Focus: Accessibility · UX · Performance</li>
+            <li>Open to freelance & collaboration</li>
           </ul>
         </div>
       </section>
@@ -133,44 +142,37 @@
       </section>
 
       <!-- Contact -->
-      <section id="kontakt" class="container" aria-labelledby="kontakt-tittel">
-        <h2 id="kontakt-tittel">Contact</h2>
-        <button class="button">
-          <div class="button-text">
-            <i class="fa-solid fa-envelope"></i>
-          </div>
-          <div class="button-links">
-            <a class="button-contact" href="mailto:sander.nil@hotmail.com">Send Mail</a>
-          </div>
-        </button>
+      <section id="contact" class="container">
+        <h2>Contact</h2>
 
-        <button class="button">
-          <div class="button-text">
-            <i class="fa-brands fa-linkedin"></i>
-          </div>
-          <div class="button-links">
-            <a
-              class="button-linkedin"
-              href="https://www.linkedin.com/in/sandernilsen/"
-              target="_blank"
-              >LinkedIn</a
-            >
-          </div>
-        </button>
+        <a
+          class="btn btn-soft"
+          href="mailto:sander.nil@hotmail.com"
+          aria-label="Send Mail"
+        >
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <span>Send Mail</span>
+        </a>
 
-        <button class="button">
-          <div class="button-text">
-            <i class="fa-brands fa-github"></i>
-          </div>
-          <div class="button-links">
-            <a
-              class="button-github"
-              href="https://github.com/SanderNilsen"
-              target="_blank"
-              >Github</a
-            >
-          </div>
-        </button>
+        <a
+          class="btn btn-soft"
+          href="https://www.linkedin.com/in/sandernilsen/"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+          <span>LinkedIn</span>
+        </a>
+
+        <a
+          class="btn btn-soft"
+          href="https://github.com/SanderNilsen"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span>GitHub</span>
+        </a>
       </section>
     </main>
 

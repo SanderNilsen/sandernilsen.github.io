@@ -47,7 +47,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 
@@ -139,6 +139,107 @@ p.lead {
   border-radius: var(--radius);
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
+
+/* Base card styles */
+.hero .card,
+.cv .card,
+.project {
+  position: relative;
+  background: var(--bg-elev);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover glow effect */
+.hero .card:hover,
+.cv .card:hover,
+.project:hover {
+  border-color: transparent;
+  box-shadow: 0 0 25px 5px rgba(56,189,248,0.6), 
+              0 0 35px 10px rgba(167,139,250,0.5);
+}
+
+/* Optional: animated gradient border */
+.hero .card::before,
+.cv .card::before,
+.project::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* thickness of the glowing border */
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.hero .card:hover::before,
+.cv .card:hover::before,
+.project:hover::before {
+  opacity: 1;
+}
+
+/* Base button */
+.btn {
+  --btn-bg: color-mix(in srgb, var(--bg-elev) 85%, transparent);
+  --btn-border: color-mix(in srgb, var(--muted) 22%, transparent);
+  --btn-hover-bg: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
+  --btn-active-bg: color-mix(in srgb, var(--brand) 14%, var(--bg-elev));
+  --btn-shadow: 0 6px 18px rgba(0,0,0,.25);
+
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--btn-border);
+  background: linear-gradient(180deg, var(--btn-bg), color-mix(in srgb, var(--bg-elev) 92%, transparent));
+  color: var(--txt);
+  text-decoration: none;
+  line-height: 1;
+  box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, outline-offset .2s ease;
+  will-change: transform;
+}
+
+/* Icon sizing */
+.btn i {
+  font-size: 1.05rem;
+}
+
+/* Hover / active */
+.btn:hover {
+  background: linear-gradient(180deg, var(--btn-hover-bg), color-mix(in srgb, var(--bg-elev) 94%, transparent));
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--btn-border));
+  box-shadow: var(--btn-shadow);
+  transform: translateY(-1px);
+}
+
+/* Variants */
+.btn.btn-soft {
+  --btn-bg: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
+  --btn-hover-bg: color-mix(in srgb, var(--brand) 16%, var(--bg-elev));
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
+}
+/* Full-width on small screens for easier tapping */
+@media (max-width: 560px) {
+  #kontakt .btn { display: flex; width: 100%; justify-content: center; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
 
 
 /* Projects */
