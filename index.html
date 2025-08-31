@@ -9,213 +9,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sander Nilsen | Portfolio</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="main.js" defer></script>
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-dark navbar-expand-lg navbar-light">
-        <div class="justify-content-between container">
-          <div class="navbar-brand logo fs-1">S</div>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarText"
-            aria-controls="navbarText"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon bg-secondary rounded"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#about"
-                  >About</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#projects">Projects</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#contact">Contact</a>
-              </li>
-            </ul>
-            <div class="navbar-brand social-icons d-flex fa-brands gap-2">
-              <a href="#" class="github-icon"
-                ><i class="fa-brands fa-github text-white"></i
-              ></a>
-              <a href="#" class="linkedin-icon"
-                ><i class="fa-brands fa-linkedin text-white"></i
-              ></a>
-              <a href="#" class="instagram-icon"
-                ><i class="fa-brands fa-instagram text-white"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <div class="container nav" role="navigation" aria-label="Main menu">
+        <a class="brand" href="#hero">Sander Nilsen</a>
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#contact" class="btn">Contact</a></li>
+        </ul>
+      </div>
     </header>
 
     <main>
-      <section class="intro">
-        <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between">
-          <div class="intro-image">
-            <img class="ob rounded-full" src="images/profile.png" alt="Sander Nilsen" />
-          </div>
-          <div class="intro-text w-50">
-            <h1>Sander Nilsen</h1>
-            <p>I'm a student at Noroff, studying frontend development.</p>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-solid fa-file"></i>
-              </div>
-              <div class="button-links">
-                <a class="button-cv" href="#cv">My CV</a>
-              </div>
-            </button>
+      <!-- HERO -->
+      <section id="hero" class="container hero" aria-label="Intro">
+        <div>
+          <h1>Developer building fast, accessible solutions</h1>
+          <p class="lead">I'm a student at Noroff, studying frontend development.</p>
+          <p>
+            <a class="btn" href="#projects">Projects</a>
+            <a class="btn" href="#cv" style="margin-left: 0.5rem">CV</a>
+          </p>
+        </div>
+        <div class="card" aria-hidden="true">
+          <img src="images/profile-img.png" alt="Sander Nilsen" />
+          <strong>Quick Facts</strong>
+          <ul>
+            <li>Based in Trondheim</li>
+            <li>Frontend · UX · Prototyping</li>
+            <li>Available for projects</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="container" aria-labelledby="projects-title">
+        <h2 id="projects-title">Projects</h2>
+        <div class="filters" role="toolbar" aria-label="Filter projects">
+          <button class="chip" aria-pressed="true" data-filter="all">All</button>
+          <button class="chip" aria-pressed="false" data-filter="web">Web</button>
+          <button class="chip" aria-pressed="false" data-filter="app">App</button>
+          <button class="chip" aria-pressed="false" data-filter="design">Design</button>
+        </div>
+        <div class="grid" id="project-grid" aria-live="polite"></div>
+      </section>
+
+      <!-- CV -->
+      <section id="cv" class="container" aria-labelledby="cv-tittel">
+        <h2 id="cv-tittel">CV</h2>
+        <div class="cv">
+          <aside class="card">
+            <h3>Skills</h3>
+            <ul>
+              <li>HTML, CSS, JS</li>
+              <li>Design</li>
+              <li>Performance Optimization</li>
+            </ul>
+          </aside>
+          <div class="card">
+            <h3>Work Experience</h3>
+            <details>
+              <summary>
+                <strong>Shop Assistant</strong> · XXL Sport og Villmark Lade
+              </summary>
+              <ul>
+                <li>Cash register</li>
+                <li>Ski and bicycle</li>
+              </ul>
+            </details>
+            <details>
+              <summary>
+                <strong>Service Worker</strong> · Elite Service Partner AS (Insider
+                facility solution AS)
+              </summary>
+              <ul>
+                <li>Building cleaning</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Production Worker</strong> · Berg Seafood AS</summary>
+              <ul>
+                <li>Cod fishing</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Shop Assistant</strong> · Rema 1000 Jg Hansen AS</summary>
+              <ul>
+                <li>Cash register</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Production Worker</strong> · Lofothval</summary>
+              <ul>
+                <li>Packing</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Salesperson</strong> · Neras Direkte AS</summary>
+              <ul>
+                <li>Telephone sales</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Firefighter</strong> · Norwegian Armed Forces</summary>
+              <ul>
+                <li>Firefighter</li>
+              </ul>
+            </details>
+            <details>
+              <summary><strong>Shop Assistant</strong> · Extra Svolvær</summary>
+              <ul>
+                <li>Cash register</li>
+              </ul>
+            </details>
+
+            <h3>Education</h3>
+            <p>Front-end, Part-time studies – Noroff (2022–2026)</p>
           </div>
         </div>
       </section>
 
-      <section class="projects" id="projects">
-        <h2>Projects</h2>
-        <div class="projects-container">
-          <div class="project-card">
-            <h3>RainyDays</h3>
-            <img
-              class="card-img"
-              src="images/RainyDays-Website-Design.png"
-              alt="overview of the website"
-            />
-            <p>
-              The Rainy Days course assignment is a simple e-commerce website for selling
-              clothing items made with HTML, CSS and JavaScript.
-            </p>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-brands fa-github"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-github"
-                  href="https://github.com/SanderNilsen/RainyDays"
-                  target="_blank"
-                  >View on GitHub</a
-                >
-              </div>
-            </button>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-solid fa-laptop"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-website"
-                  href="https://classy-duckanoo-15bd80.netlify.app/"
-                  target="_blank"
-                  >Live Website</a
-                >
-              </div>
-            </button>
-          </div>
-          <div class="project-card">
-            <h3>Community Science Museum</h3>
-            <img
-              class="card-img"
-              src="images/CMS-Website-Design.png"
-              alt="overview of the website"
-            />
-            <p>
-              Noroff semester project 1, creating a website for "Community Science Museum"
-              in HTML and CSS.
-            </p>
-
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-brands fa-github"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-github"
-                  href="https://github.com/SanderNilsen/Semester-Project-1"
-                  target="_blank"
-                  >View on Github
-                </a>
-              </div>
-            </button>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-solid fa-laptop"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-website"
-                  href="https://jovial-frangipane-060223.netlify.app/"
-                  target="_blank"
-                  >Live Website</a
-                >
-              </div>
-            </button>
-          </div>
-          <div class="project-card">
-            <h3>LofotenPeaks</h3>
-            <img
-              class="card-img"
-              src="images/Websitedesign.png"
-              alt="overview of the website"
-            />
-            <p>
-              This project involves creating a custom blog website using HTML, CSS, and
-              JavaScript, with content managed through a WordPress installation acting as
-              a Headless CMS.
-            </p>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-brands fa-github"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-github"
-                  href="https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen"
-                  target="_blank"
-                  >View on GitHub</a
-                >
-              </div>
-            </button>
-            <button class="button">
-              <div class="button-text">
-                <i class="fa-solid fa-laptop"></i>
-              </div>
-              <div class="button-links">
-                <a
-                  class="button-website"
-                  href="https://lofotenpeaks.netlify.app/"
-                  target="_blank"
-                  >Live Website</a
-                >
-              </div>
-            </button>
-          </div>
-        </div>
-      </section>
-      <section class="cv" id="cv">
-        <h2>CV</h2>
-        <li>Butikkmedarbeider, XXL Sport og Villmark Lade, Trondheim</li>
-        <li>
-          Servicearbeider, Elite Service Partner AS (Insider facility solution AS),
-          Svolvær
-        </li>
-        <li>Produksjonsmedarbeider, Berg Seafood AS, Laukvik</li>
-        <li>Butikkmedarbeider, Rema 1000 Jg Hansen AS, Svolvær</li>
-        <li>Produksjonsarbeider, Lofothval, Svolvær</li>
-        <li>Selger, Neras Direkte AS, Trondheim</li>
-        <li>Røykdykker, Forsvaret, Stavanger</li>
-        <li>Butikkmedarbeider, Extra Svolvær, Svolvær</li>
-      </section>
-
-      <section class="contact" id="contact">
-        <h2>Contact Me</h2>
-
+      <!-- Contact -->
+      <section id="kontakt" class="container" aria-labelledby="kontakt-tittel">
+        <h2 id="kontakt-tittel">Contact</h2>
         <button class="button">
           <div class="button-text">
             <i class="fa-solid fa-envelope"></i>
@@ -238,11 +157,25 @@
             >
           </div>
         </button>
+
+        <button class="button">
+          <div class="button-text">
+            <i class="fa-brands fa-github"></i>
+          </div>
+          <div class="button-links">
+            <a
+              class="button-github"
+              href="https://github.com/SanderNilsen"
+              target="_blank"
+              >Github</a
+            >
+          </div>
+        </button>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2024 Sander Nilsen</p>
+      <div class="container">© <span id="year"></span> Sander Nilsen</div>
     </footer>
   </body>
 </html>
