@@ -353,6 +353,29 @@ p.lead {
   gap: 16px;
 }
 
+.project-links {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn.btn-sm {
+  padding: 7px 12px;
+  font-size: .9rem;
+  border-radius: 10px;
+}
+
+/* Secondary look for GitHub link */
+.btn.btn-ghost {
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
+}
+.btn.btn-ghost:hover {
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--muted));
+}
+
+
 .project {
   grid-column: span 4;
   background: var(--bg-elev);

@@ -30,7 +30,8 @@ const projects = [
     tags: ['HTML', 'CSS', 'JS'],
     img: "images/RainyDays-Website-Design.png",
     desc: 'The Rainy Days course assignment is a simple e-commerce website for selling clothing items made with HTML, CSS and JavaScript.',
-    url: 'https://classy-duckanoo-15bd80.netlify.app/'
+    url: 'https://classy-duckanoo-15bd80.netlify.app/',
+    github: 'https://github.com/SanderNilsen/RainyDays'
   },
   {
     title: 'Community Science Museum',
@@ -38,7 +39,8 @@ const projects = [
     tags: ['HTML', 'CSS'],
     img: 'images/CMS-Website-Design.png',
     desc: 'Noroff semester project 1, creating a website for "Community Science Museum" in HTML and CSS.',
-    url: 'https://jovial-frangipane-060223.netlify.app/'
+    url: 'https://jovial-frangipane-060223.netlify.app/',
+    github: 'https://github.com/SanderNilsen/Semester-Project-1'
   },
   {
     title: 'LofotenPeaks',
@@ -46,8 +48,28 @@ const projects = [
     tags: ['Html', 'CSS', 'JS', 'WP'],
     img: 'images/Websitedesign.png',
     desc: 'This project involves creating a custom blog website using HTML, CSS, and JavaScript, with content managed through a WordPress installation acting as a Headless CMS.',
-    url: 'https://lofotenpeaks.netlify.app/'
+    url: 'https://lofotenpeaks.netlify.app/',
+    github: 'https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen'
   },
+  {
+    title: 'LinkUp',
+    type: 'web',
+    tags: ['Html', 'CSS', 'JS'],
+    img: 'images/websitedesign-linkup.png',
+    desc: 'A simple social media application built using HTML, SASS, Bootstrap, and NPM. The application features user authentication, a feed page, and a profile page, along with responsive design and SCSS customizations.',
+    url: 'https://linkup-css-frameworks.netlify.app/',
+    github: 'https://github.com/SanderNilsen/css-frameworks-ca'
+  },
+  {
+    title: 'Auction House',
+    type: 'web',
+    tags: ['Html', 'CSS', 'JS'],
+    img: 'images/Website-Design-AH.png',
+    desc: 'A functional auction platform where users can buy and sell items using a credit-based system. New users receive 1,000 credits upon registration, which they can use to bid on items. Additional credits are earned by selling items.',
+    url: 'https://semester-project-2-auctionhouse.netlify.app/index.html',
+    github: 'https://github.com/SanderNilsen/Semester-Project-2-AuctionHouse'
+  },  
+
 ];
 
 // Render projects
@@ -72,8 +94,10 @@ function renderProjects(list) {
       <div class="tags">
         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
       </div>
-      <p><a href="${project.url}">Live Website →</a></p>
-    </article>
+      <div class="project-links">
+        <a href="${project.url}" target="_blank" rel="noopener" class="btn btn-sm">Live Website</a>
+        ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">View on GitHub</a>` : ''}
+      </div>    </article>
   `).join('');
 }
 
