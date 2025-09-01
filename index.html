@@ -16,14 +16,15 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <header>
+    <header class="site-header">
       <div class="container nav" role="navigation" aria-label="Main menu">
         <a class="brand" href="#hero">Sander Nilsen</a>
-        <ul>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#cv">CV</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a class="nav-link" href="#projects">Projects</a>
+          <a class="nav-link" href="#cv">CV</a>
+          <a class="nav-link" href="#footer">Contact</a>
+        </nav>
       </div>
     </header>
 
@@ -42,14 +43,26 @@
             <a class="btn" href="#cv" style="margin-left: 0.5rem">CV</a>
           </p>
         </div>
-        <div class="card" aria-hidden="true">
-          <img src="images/profile-img.png" alt="Sander Nilsen" />
-          <strong>Quick Facts</strong>
-          <ul>
-            <li>Trondheim, Norway</li>
-            <li>Frontend Development Student · Noroff</li>
-            <li>Focus: Accessibility · UX · Performance</li>
-            <li>Open to freelance & collaboration</li>
+        <div class="card quickfacts">
+          <img src="images/profile-img.png" alt="Sander Nilsen" class="quickfacts-img" />
+          <h3 class="quickfacts-title">Quick Facts</h3>
+          <ul class="quickfacts-list">
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Trondheim, Norway</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Frontend Development Student · Noroff</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-laptop-code"></i>
+              <span>Focus: Accessibility · UX · Performance</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-handshake-angle"></i>
+              <span>Open to freelance & collaboration</span>
+            </li>
           </ul>
         </div>
       </section>
@@ -67,117 +80,244 @@
       </section>
 
       <!-- CV -->
-      <section id="cv" class="container" aria-labelledby="cv-tittel">
-        <h2 id="cv-tittel">CV</h2>
+      <section id="cv" class="container" aria-labelledby="cv-title">
+        <h2 id="cv-title">CV</h2>
         <div class="cv">
           <aside class="card">
-            <h3>Skills</h3>
-            <ul>
-              <li>HTML, CSS, JS</li>
-              <li>Design</li>
-              <li>Performance Optimization</li>
+            <h3>Currently learning</h3>
+            <ul class="skills">
+              <li class="skill">
+                <span class="skill-name">Figma</span>
+                <span class="skill-val">50%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="Figma proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="50"
+                >
+                  <span class="skill-fill" style="--level: 50%"></span>
+                </div>
+              </li>
+
+              <li class="skill">
+                <span class="skill-name">HTML</span>
+                <span class="skill-val">70%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="HTML proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="70"
+                >
+                  <span class="skill-fill" style="--level: 70%"></span>
+                </div>
+              </li>
+
+              <li class="skill">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-val">20%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="JavaScript proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="20"
+                >
+                  <span class="skill-fill" style="--level: 20%"></span>
+                </div>
+              </li>
+
+              <li class="skill">
+                <span class="skill-name">CSS</span>
+                <span class="skill-val">60%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="CSS proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="60"
+                >
+                  <span class="skill-fill" style="--level: 60%"></span>
+                </div>
+              </li>
+
+              <li class="skill">
+                <span class="skill-name">Wordpress</span>
+                <span class="skill-val">20%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="Wordpress proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="20"
+                >
+                  <span class="skill-fill" style="--level: 20%"></span>
+                </div>
+              </li>
+
+              <li class="skill">
+                <span class="skill-name">React</span>
+                <span class="skill-val">0%</span>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-label="React proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                >
+                  <span class="skill-fill" style="--level: 0%"></span>
+                </div>
+              </li>
             </ul>
           </aside>
           <div class="card">
             <h3>Work Experience</h3>
-            <details>
-              <summary>
-                <strong>Shop Assistant</strong> · XXL Sport og Villmark Lade
-              </summary>
-              <ul>
-                <li>Cash register</li>
-                <li>Ski and bicycle</li>
-              </ul>
-            </details>
-            <details>
-              <summary>
-                <strong>Service Worker</strong> · Elite Service Partner AS (Insider
-                facility solution AS)
-              </summary>
-              <ul>
-                <li>Building cleaning</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Production Worker</strong> · Berg Seafood AS</summary>
-              <ul>
-                <li>Cod fishing</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Shop Assistant</strong> · Rema 1000 Jg Hansen AS</summary>
-              <ul>
-                <li>Cash register</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Production Worker</strong> · Lofothval</summary>
-              <ul>
-                <li>Packing</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Salesperson</strong> · Neras Direkte AS</summary>
-              <ul>
-                <li>Telephone sales</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Firefighter</strong> · Norwegian Armed Forces</summary>
-              <ul>
-                <li>Firefighter</li>
-              </ul>
-            </details>
-            <details>
-              <summary><strong>Shop Assistant</strong> · Extra Svolvær</summary>
-              <ul>
-                <li>Cash register</li>
-              </ul>
-            </details>
+            <ol class="timeline clamp" id="exp-timeline">
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Shop Assistant</span>
+                  <span class="meta">XXL Sport og Villmark Lade</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Cash register & customer support</li>
+                  <li>Assisted ski & bicycle department</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Service Worker</span>
+                  <span class="meta">Elite Service Partner AS</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Building cleaning & maintenance</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Production Worker</span>
+                  <span class="meta">Berg Seafood AS</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Cod fishing operations</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Shop Assistant</span>
+                  <span class="meta">Rema 1000 Jg Hansen AS</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Cash register & service</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Production Worker</span>
+                  <span class="meta">Lofothval</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Packing & QC</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Salesperson</span>
+                  <span class="meta">Neras Direkte AS</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Telephone sales</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Firefighter</span>
+                  <span class="meta">Norwegian Armed Forces</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Fire response & safety</li>
+                </ul>
+              </li>
+
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Shop Assistant</span>
+                  <span class="meta">Extra Svolvær</span>
+                </div>
+                <ul class="tl-bullets">
+                  <li>Cash register & service</li>
+                </ul>
+              </li>
+            </ol>
+
+            <button class="tl-toggle" data-target="#exp-timeline" aria-expanded="false">
+              Show all experience
+            </button>
 
             <h3>Education</h3>
-            <p>Front-end, Part-time studies – Noroff (2022–2026)</p>
+            <ol class="timeline">
+              <li class="tl-item">
+                <div class="tl-head">
+                  <span class="role">Frontend Development (Part-time)</span>
+                  <span class="meta">Noroff · 2022–2026</span>
+                </div>
+              </li>
+            </ol>
           </div>
         </div>
       </section>
-
-      <!-- Contact -->
-      <section id="contact" class="container">
-        <h2>Contact</h2>
-
-        <a
-          class="btn btn-soft"
-          href="mailto:sander.nil@hotmail.com"
-          aria-label="Send Mail"
-        >
-          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-          <span>Send Mail</span>
-        </a>
-
-        <a
-          class="btn btn-soft"
-          href="https://www.linkedin.com/in/sandernilsen/"
-          target="_blank"
-          rel="noopener"
-        >
-          <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-          <span>LinkedIn</span>
-        </a>
-
-        <a
-          class="btn btn-soft"
-          href="https://github.com/SanderNilsen"
-          target="_blank"
-          rel="noopener"
-        >
-          <i class="fa-brands fa-github" aria-hidden="true"></i>
-          <span>GitHub</span>
-        </a>
-      </section>
     </main>
 
-    <footer>
-      <div class="container">© <span id="year"></span> Sander Nilsen</div>
+    <footer id="footer" class="site-footer">
+      <div class="container footer-wrap">
+        <div class="footer-brand">
+          <a class="brand" href="#hero">Sander Nilsen</a>
+          <p class="footer-lead">Available for freelance & collaboration.</p>
+        </div>
+
+        <div class="footer-actions">
+          <a
+            class="btn btn-soft btn-sm"
+            href="mailto:sander.nil@hotmail.com"
+            aria-label="Email Sander"
+          >
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <span>Email me</span>
+          </a>
+          <a
+            class="icon-btn"
+            href="https://www.linkedin.com/in/sandernilsen/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+          </a>
+          <a
+            class="icon-btn"
+            href="https://github.com/SanderNilsen"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+          >
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="footer-meta">© <span id="year"></span> Sander Nilsen</div>
+      </div>
     </footer>
   </body>
 </html>

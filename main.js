@@ -107,3 +107,60 @@ document.addEventListener('keydown', event => {
     document.body.classList.add('show-focus');
   }
 });
+
+// Animate skill bars from 0% to their set --level
+document.querySelectorAll('.skills').forEach(list => {
+  requestAnimationFrame(() => list.classList.add('animate'));
+});
+
+// Timeline clamp toggle
+document.querySelectorAll('.tl-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetSel = btn.getAttribute('data-target');
+    const target = document.querySelector(targetSel);
+    if (!target) return;
+
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+
+    target.classList.toggle('clamp', expanded); // remove clamp when expanded
+
+    btn.textContent = expanded ? 'Show all experience' : 'Show less';
+  });
+});
+
+// Mobile menu toggle
+const menuBtn = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+}
+
+// Active section highlight
+const sections = [
+  { id: 'hero', link: document.querySelector('.nav-link[href="#hero"]') },      // if you add it later
+  { id: 'projects', link: document.querySelector('.nav-link[href="#projects"]') },
+  { id: 'cv', link: document.querySelector('.nav-link[href="#cv"]') },
+  { id: 'footer', link: document.querySelector('.nav-link[href="#footer"]') }
+].filter(s => s.link);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const s = sections.find(x => x.id === entry.target.id);
+    if (!s) return;
+    if (entry.isIntersecting) {
+      sections.forEach(x => x.link.classList.remove('is-active'));
+      s.link.classList.add('is-active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+
+sections.forEach(s => {
+  const el = document.getElementById(s.id);
+  if (el) observer.observe(el);
+});
+
+

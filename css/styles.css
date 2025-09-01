@@ -50,44 +50,76 @@ a:hover {
   text-decoration: none;
 }
 
-
 /* Layout */
 .container {
   width: min(100% - 32px, var(--maxw));
   margin-inline: auto;
 }
 
-header {
+/* Header shell */
+.site-header {
   position: sticky;
   top: 0;
+  z-index: 20;
   backdrop-filter: saturate(180%) blur(10px);
   background: color-mix(in srgb, var(--bg) 80%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
-  z-index: 10;
 }
 
+/* Layout */
 .nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* brand | spacer | nav / toggle */
   align-items: center;
-  justify-content: space-between;
-  gap: 13px;
-  padding: 13px 0;
+  gap: 12px;
+  padding: 12px 0;
 }
 
-.nav a.brand {
+.brand {
   font-weight: 700;
   letter-spacing: .2px;
   color: var(--txt);
 }
 
-.nav ul {
-  list-style: none;
+/* Desktop nav */
+.nav-links {
   display: flex;
-  gap: 13px;
-  padding: 0;
-  margin: 0;
+  gap: 8px;
+  justify-self: end;
 }
 
+/* Pill links with subtle hover + gradient underline */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  color: var(--txt);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
+  background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
+  transition: border-color .2s ease, transform .15s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px; bottom: 5px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+  opacity: .85;
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+}
 
 main {
   padding: 32px 0 80px;
@@ -116,7 +148,6 @@ p.lead {
   max-width: 65ch;
 }
 
-
 /* Hero */
 .hero {
   display: grid;
@@ -140,6 +171,61 @@ p.lead {
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
+/* Quick Facts */
+.quickfacts {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.quickfacts-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+
+.quickfacts-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.quickfacts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.quickfacts-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: color-mix(in srgb, var(--bg-elev) 95%, transparent);
+  border: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: var(--txt);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.quickfacts-list li i {
+  color: var(--brand);
+  min-width: 18px;
+}
+
+.quickfacts-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+
+
 /* Base card styles */
 .hero .card,
 .cv .card,
@@ -162,7 +248,7 @@ p.lead {
               0 0 35px 10px rgba(167,139,250,0.5);
 }
 
-/* Optional: animated gradient border */
+/* Animated gradient border */
 .hero .card::before,
 .cv .card::before,
 .project::before {
@@ -240,8 +326,6 @@ p.lead {
   .btn { transition: none; }
 }
 
-
-
 /* Projects */
 .filters {
   display: flex;
@@ -316,6 +400,198 @@ p.lead {
   border-radius: 9999px;
 }
 
+/* Skills list layout */
+.skills {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.skill {
+  display: grid;
+  grid-template-columns: 1fr auto; /* name | % */
+  gap: 10px;
+  align-items: center;
+}
+
+.skill-name {
+  font-weight: 600;
+}
+
+.skill-val {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* Bar track */
+.skill-bar {
+  grid-column: 1 / -1;        /* full width under name + % */
+  height: 10px;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 80%, #000 20%), color-mix(in srgb, var(--bg) 88%, #000 12%));
+  box-shadow: 0 1px 0 rgba(255,255,255,.04) inset;
+}
+
+/* Bar fill (gradient + subtle glow) */
+.skill-fill {
+  display: block;
+  height: 100%;
+  width: 0%;                  /* start collapsed (for animation) */
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  box-shadow: 0 0 16px rgba(56,189,248,.28);
+  border-radius: inherit;
+  transition: width .8s cubic-bezier(.22,.61,.36,1);
+}
+
+/* When the list is ready, expand to the set level */
+.skills.animate .skill-fill { width: var(--level, 0%); }
+
+/* Bar fill (with gradient + sheen) */
+.skill-fill {
+  display: block;
+  height: 100%;
+  width: 0%; /* start collapsed */
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  box-shadow: 0 0 16px rgba(56,189,248,.28);
+  border-radius: inherit;
+  transition: width .8s cubic-bezier(.22,.61,.36,1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sheen pseudo-element */
+.skill-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.5) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Trigger sheen on hover */
+.skill:hover .skill-fill::after {
+  opacity: 1;
+  animation: sheen 1.5s ease forwards;
+}
+
+/* Sheen keyframes */
+@keyframes sheen {
+  to {
+    transform: translateX(120%);
+  }
+}
+/* Timeline container */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 18px;          /* space for the vertical line */
+  position: relative;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--brand), var(--brand-2));
+  opacity: .6;
+}
+
+/* Timeline item dot */
+.tl-item {
+  position: relative;
+  padding: 10px 0 12px;
+}
+
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--bg-elev);
+  border: 2px solid var(--brand);
+  box-shadow: 0 0 10px rgba(56,189,248,.35);
+}
+
+/* Header row: role + meta (dates/company) */
+.tl-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+  margin-left: 20px;
+
+}
+
+.tl-head .role {
+  font-weight: 600;
+}
+
+.tl-head .meta {
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Bullets: keep to 1–2 short lines each for neatness */
+.tl-bullets {
+  margin: 6px 0 0 18px;
+  color: var(--muted);
+  display: grid;
+  gap: 4px;
+}
+
+.tl-bullets li {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;       /* clamp long bullets */
+}
+
+/* Clamp the whole list initially (avoid tall card) */
+.timeline.clamp {
+  max-height: 320px;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to bottom, black 85%, transparent); /* fade out bottom */
+}
+
+/* Toggle button below timeline */
+.tl-toggle {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
+  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
+  color: var(--txt);
+  cursor: pointer;
+  font-size: .95rem;
+}
+
+.tl-toggle:hover {
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
+}
+
+/* Small screens: give a bit more room before clamping */
+@media (max-width: 600px) {
+  .timeline.clamp { max-height: 380px; }
+}
 
 /* CV */
 .cv {
@@ -334,35 +610,6 @@ p.lead {
 .cv h3 {
   margin: 3px 0 10px;
 }
-
-.cv ul {
-  margin: 5px 0 0 18px;
-}
-
-
-/* Contact */
-form {
-  display: grid;
-  gap: 11px;
-  max-width: 640px;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 13px 16px;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
-  background: color-mix(in srgb, var(--bg) 90%, #000 10%);
-  color: var(--txt);
-}
-
-input:focus,
-textarea:focus {
-  outline: var(--ring);
-  border-color: var(--brand);
-}
-
 button {
   padding: 12px 16px;
   border-radius: 12px;
@@ -372,14 +619,86 @@ button {
   cursor: pointer;
 }
 
-
+/* Contact card */
 /* Footer */
-footer {
-  padding: 32px 0;
+.site-footer {
   border-top: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+  padding: 28px 0;
   color: var(--muted);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
 }
 
+.footer-wrap {
+  display: grid;
+  grid-template-columns: 1.2fr auto;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.footer-brand .brand {
+  color: var(--txt);
+  font-weight: 700;
+}
+.footer-lead {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Actions: primary email + compact socials */
+.footer-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: end;
+}
+
+/* Small button variant for footer */
+.btn.btn-sm {
+  padding: 8px 12px;
+  border-radius: 10px;
+  gap: .5rem;
+  font-size: .95rem;
+}
+
+/* Compact circular icon buttons (reusable) */
+.icon-btn {
+  --btn-border: color-mix(in srgb, var(--muted) 22%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: 1px solid var(--btn-border);
+  background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+  color: var(--txt);
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.icon-btn i { font-size: 1.05rem; }
+.icon-btn:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--btn-border));
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 10%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+}
+
+.footer-meta {
+  grid-column: 1 / -1;
+  font-size: .9rem;
+  color: var(--muted);
+  opacity: .9;
+}
+
+/* Responsive stacking */
+@media (max-width: 700px) {
+  .footer-wrap {
+    grid-template-columns: 1fr;
+  }
+  .footer-actions {
+    justify-self: start;
+  }
+}
 
 /* Responsiveness */
 @media (max-width: 900px) {
@@ -401,7 +720,6 @@ footer {
     grid-column: span 12;
   }
 }
-
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
