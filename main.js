@@ -45,7 +45,7 @@ const projects = [
   {
     title: 'LofotenPeaks',
     type: 'web',
-    tags: ['Html', 'CSS', 'JS', 'WP'],
+    tags: ['HTML', 'CSS', 'JS', 'WP'],
     img: 'images/Websitedesign.png',
     desc: 'This project involves creating a custom blog website using HTML, CSS, and JavaScript, with content managed through a WordPress installation acting as a Headless CMS.',
     url: 'https://lofotenpeaks.netlify.app/',
@@ -53,7 +53,7 @@ const projects = [
   },
   {
     title: 'LinkUp',
-    type: 'web',
+    type: 'app',
     tags: ['Html', 'CSS', 'JS'],
     img: 'images/websitedesign-linkup.png',
     desc: 'A simple social media application built using HTML, SASS, Bootstrap, and NPM. The application features user authentication, a feed page, and a profile page, along with responsive design and SCSS customizations.',
@@ -63,7 +63,7 @@ const projects = [
   {
     title: 'Auction House',
     type: 'web',
-    tags: ['Html', 'CSS', 'JS'],
+    tags: ['HTML', 'CSS', 'JS'],
     img: 'images/Website-Design-AH.png',
     desc: 'A functional auction platform where users can buy and sell items using a credit-based system. New users receive 1,000 credits upon registration, which they can use to bid on items. Additional credits are earned by selling items.',
     url: 'https://semester-project-2-auctionhouse.netlify.app/index.html',
@@ -74,6 +74,37 @@ const projects = [
 
 // Render projects
 const grid = document.getElementById('project-grid');
+
+function showProjectsLoader(count = 6) {
+  if (!grid) return;
+  grid.setAttribute('aria-busy', 'true');
+  const card = () => `
+    <article class="project skeleton" role="status" aria-label="Loading project">
+      <figure class="sk sk-img"></figure>
+      <div class="sk sk-line lg"></div>
+      <div class="sk sk-line md"></div>
+      <div class="sk-tags">
+        <span class="sk sk-tag"></span>
+        <span class="sk sk-tag"></span>
+        <span class="sk sk-tag"></span>
+      </div>
+      <div class="sk-btns">
+        <span class="sk sk-btn"></span>
+        <span class="sk sk-btn" style="width: 110px"></span>
+      </div>
+    </article>`;
+  grid.innerHTML = Array.from({ length: count }, card).join('');
+}
+
+function preloadProjectImages(list) {
+  const sources = list.map(p => p.img);
+  const loaders = sources.map(src => new Promise(resolve => {
+    const img = new Image();
+    img.onload = img.onerror = () => resolve();
+    img.src = src;
+  }));
+  return Promise.all(loaders);
+}
 
 function renderProjects(list) {
   if (!grid) return;
@@ -101,8 +132,17 @@ function renderProjects(list) {
   `).join('');
 }
 
-// Init render
-renderProjects(projects);
+// Init render with loader
+(async function initProjects() {
+  showProjectsLoader();
+  try {
+    await preloadProjectImages(projects);
+  } catch (_) {
+    // ignore errors; still render
+  }
+  renderProjects(projects);
+  grid.removeAttribute('aria-busy');
+})();
 
 // Filter function
 const chips = document.querySelectorAll('.chip');
@@ -186,5 +226,3 @@ sections.forEach(s => {
   const el = document.getElementById(s.id);
   if (el) observer.observe(el);
 });
-
-

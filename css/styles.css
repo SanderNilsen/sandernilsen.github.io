@@ -34,10 +34,19 @@ html, body {
 body {
   margin: 0;
   font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(56,189,248,.25), transparent),
-    radial-gradient(900px 400px at 100% 0%, rgba(167,139,250,.18), transparent),
-    var(--bg);
+  /* Seamless, fluid background without hard breakpoint edges */
+  background-image:
+    /* Fine noise overlay (on top) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.035'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    /* Brand glow accents that scale with viewport */
+    radial-gradient(60vw 45vh at 12% -12%, rgba(56,189,248,.22) 0%, rgba(56,189,248,.18) 30%, transparent 70%),
+    radial-gradient(52vw 40vh at 100% -8%, rgba(167,139,250,.16) 0%, rgba(167,139,250,.14) 28%, transparent 72%),
+    /* Gentle vertical depth to reduce banding */
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 98%, #000 2%), var(--bg));
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 160px 160px, auto, auto, auto;
+  /* Solid base color to guarantee full coverage */
+  background-color: var(--bg);
   color: var(--txt);
 }
 
@@ -116,7 +125,6 @@ a:hover {
 }
 
 .nav-link:hover {
-  transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
   background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
 }
@@ -173,7 +181,6 @@ p.lead {
 
 /* Quick Facts */
 .quickfacts {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,15 +223,12 @@ p.lead {
 }
 
 .quickfacts-list li i {
+  text-align: center;
   color: var(--brand);
   min-width: 18px;
 }
 
-.quickfacts-list li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
-}
-
+/* (reverted) */
 
 /* Base card styles */
 .hero .card,
@@ -274,6 +278,9 @@ p.lead {
   opacity: 1;
 }
 
+/* Keep hover depth subtle; moving line provides emphasis */
+/* (reverted) */
+
 /* Base button */
 .btn {
   --btn-bg: color-mix(in srgb, var(--bg-elev) 85%, transparent);
@@ -293,8 +300,7 @@ p.lead {
   text-decoration: none;
   line-height: 1;
   box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
-  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, outline-offset .2s ease;
-  will-change: transform;
+  transition: box-shadow .2s ease, border-color .2s ease, outline-offset .2s ease;
 }
 
 /* Icon sizing */
@@ -307,7 +313,6 @@ p.lead {
   background: linear-gradient(180deg, var(--btn-hover-bg), color-mix(in srgb, var(--bg-elev) 94%, transparent));
   border-color: color-mix(in srgb, var(--brand) 35%, var(--btn-border));
   box-shadow: var(--btn-shadow);
-  transform: translateY(-1px);
 }
 
 /* Variants */
@@ -351,6 +356,57 @@ p.lead {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 16px;
+}
+
+/* Projects: loader (skeleton) */
+.project.skeleton {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  position: relative;
+  background: var(--bg-elev);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  overflow: hidden;
+}
+
+.skeleton .sk,
+.skeleton .sk::before {
+  border-radius: 10px;
+}
+
+/* Shimmer base */
+.sk {
+  --sk-base: color-mix(in srgb, var(--bg-elev) 90%, transparent);
+  --sk-hi: color-mix(in srgb, var(--brand) 14%, var(--bg-elev));
+  background: linear-gradient(90deg, var(--sk-base) 0%, var(--sk-hi) 50%, var(--sk-base) 100%);
+  background-size: 200% 100%;
+  animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes sk-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.sk-img { height: 180px; border-radius: calc(var(--radius) - 6px); }
+.sk-line { height: 14px; }
+.sk-line.sm { width: 40%; }
+.sk-line.md { width: 65%; }
+.sk-line.lg { width: 85%; }
+.sk-tags { display: flex; gap: 6px; margin-top: auto; flex-wrap: wrap; }
+.sk-tag { width: 64px; height: 18px; border-radius: 9999px; }
+.sk-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.sk-btn { height: 32px; width: 120px; border-radius: 10px; }
+
+@media (max-width: 900px) {
+  .project.skeleton { grid-column: span 6; }
+}
+@media (max-width: 600px) {
+  .project.skeleton { grid-column: span 12; }
 }
 
 .project-links {
@@ -696,11 +752,10 @@ button {
   border: 1px solid var(--btn-border);
   background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
   color: var(--txt);
-  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  transition: box-shadow .2s ease, border-color .2s ease;
 }
 .icon-btn i { font-size: 1.05rem; }
 .icon-btn:hover {
-  transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--brand) 35%, var(--btn-border));
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
   background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 10%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
