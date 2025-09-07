@@ -79,7 +79,7 @@ function showProjectsLoader(count = 6) {
   if (!grid) return;
   grid.setAttribute('aria-busy', 'true');
   const card = () => `
-    <article class="project skeleton" role="status" aria-label="Loading project">
+    <article class="project card skeleton" role="status" aria-label="Loading project">
       <figure class="sk sk-img"></figure>
       <div class="sk sk-line lg"></div>
       <div class="sk sk-line md"></div>
@@ -110,7 +110,7 @@ function renderProjects(list) {
   if (!grid) return;
 
   grid.innerHTML = list.map(project => `
-    <article class="project" data-type="${project.type}">
+    <article class="project card" data-type="${project.type}">
       <figure>
         <img
           src="${project.img}"
