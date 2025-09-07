@@ -265,6 +265,9 @@ p.lead {
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
     linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   opacity: 0;
@@ -641,6 +644,7 @@ p.lead {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;       /* clamp long bullets */
+  line-clamp: 2;               /* standard property for compatibility */
 }
 
 /* Clamp the whole list initially (avoid tall card) */
