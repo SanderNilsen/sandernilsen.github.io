@@ -23,6 +23,24 @@
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #0b1020;
+  --bg-elev: #111731;
+  --txt: #e6e6f0;
+  --muted: #a7b0c5;
+  --brand: #38bdf8;
+  --brand-2: #a78bfa;
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f8fc;
+  --bg-elev: #ffffff;
+  --txt: #101322;
+  --muted: #5a647a;
+  --brand: #0ea5e9;
+  --brand-2: #7c3aed;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -147,6 +165,82 @@ a:hover {
 .nav-link:hover {
   border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
   background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
+  background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
+  color: var(--txt);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, transform .15s ease;
+  appearance: none;
+}
+
+.theme-toggle:hover {
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--muted));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+}
+
+.theme-toggle:active {
+  transform: translateY(1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: var(--ring);
+  outline-offset: 2px;
+}
+
+.theme-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--txt));
+}
+
+.theme-toggle__icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.theme-toggle__icon i {
+  position: absolute;
+  font-size: 1.1rem;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.theme-toggle__icon-sun,
+.theme-toggle__icon-moon {
+  opacity: 0;
+  transform: scale(.85);
+}
+
+.theme-toggle__icon-moon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:root[data-theme="light"] .theme-toggle__icon-sun {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:root[data-theme="light"] .theme-toggle__icon-moon {
+  opacity: 0;
+  transform: scale(.85);
+}
+
+.theme-toggle__label {
+  font-size: 0.9rem;
+  letter-spacing: .2px;
 }
 
 main {

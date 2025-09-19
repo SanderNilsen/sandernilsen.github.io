@@ -14,6 +14,84 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+// Theme toggle
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+if (themeToggleBtn) {
+  const storageKey = 'portfolio-theme';
+  const root = document.documentElement;
+  const labelEl = themeToggleBtn.querySelector('.theme-toggle__label');
+  const prefersLightQuery = window.matchMedia
+    ? window.matchMedia('(prefers-color-scheme: light)')
+    : { matches: false };
+
+  const readStoredTheme = () => {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch (_) {
+      return null;
+    }
+  };
+
+  const persistTheme = theme => {
+    try {
+      localStorage.setItem(storageKey, theme);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const setToggleState = theme => {
+    themeToggleBtn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    if (labelEl) {
+      labelEl.textContent = theme === 'dark' ? 'Dark' : 'Light';
+    }
+  };
+
+  const applyTheme = theme => {
+    root.setAttribute('data-theme', theme);
+    setToggleState(theme);
+  };
+
+  let userPreferredTheme = null;
+
+  const initTheme = () => {
+    const stored = readStoredTheme();
+    if (stored === 'light' || stored === 'dark') {
+      userPreferredTheme = stored;
+      applyTheme(stored);
+      return;
+    }
+    userPreferredTheme = null;
+    applyTheme(prefersLightQuery.matches ? 'light' : 'dark');
+  };
+
+  const toggleTheme = () => {
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    userPreferredTheme = next;
+    persistTheme(next);
+  };
+
+  const handleSystemChange = event => {
+    if (userPreferredTheme === null) {
+      applyTheme(event.matches ? 'light' : 'dark');
+    }
+  };
+
+  initTheme();
+  themeToggleBtn.addEventListener('click', toggleTheme);
+
+  if (typeof prefersLightQuery.addEventListener === 'function') {
+    prefersLightQuery.addEventListener('change', handleSystemChange);
+  } else if (typeof prefersLightQuery.addListener === 'function') {
+    prefersLightQuery.addListener(handleSystemChange);
+  }
+}
+
 // Set current year in footer
 
 const yearEl = document.getElementById('year');

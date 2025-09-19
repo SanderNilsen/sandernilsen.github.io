@@ -23,6 +23,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <script>
+      (function () {
+        const storageKey = "portfolio-theme";
+        const root = document.documentElement;
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        let theme = prefersLight ? "light" : "dark";
+
+        try {
+          const stored = localStorage.getItem(storageKey);
+          if (stored === "light" || stored === "dark") {
+            theme = stored;
+          }
+        } catch (_) {}
+
+        root.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="stylesheet" href="css/styles.css" />
     <script src="main.js" defer></script>
   </head>
@@ -36,6 +53,20 @@
           <a class="nav-link" href="#cv">CV</a>
           <a class="nav-link" href="#footer">Contact</a>
         </nav>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          id="theme-toggle"
+          aria-pressed="false"
+          aria-label="Toggle dark mode"
+        >
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <i class="fa-solid fa-moon theme-toggle__icon-moon"></i>
+            <i class="fa-solid fa-sun theme-toggle__icon-sun"></i>
+          </span>
+          <span class="theme-toggle__label">Dark</span>
+        </button>
       </div>
     </header>
 
