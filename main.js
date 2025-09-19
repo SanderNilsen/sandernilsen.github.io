@@ -75,6 +75,54 @@ const projects = [
 // Render projects
 const grid = document.getElementById('project-grid');
 
+const supportsIntersectionObserver = 'IntersectionObserver' in window;
+const prefersReducedMotion = window.matchMedia
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false;
+
+const revealObserver = supportsIntersectionObserver && !prefersReducedMotion
+  ? new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          const revealOnce = () => {
+            target.classList.add('is-visible');
+            observer.unobserve(target);
+          };
+
+          if ('requestAnimationFrame' in window) {
+            requestAnimationFrame(revealOnce);
+          } else {
+            setTimeout(revealOnce, 0);
+          }
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -20%' })
+  : null;
+
+function addReveal(elements, { delayStep = 0, delayFn = null } = {}) {
+  let index = 0;
+  elements.forEach(el => {
+    if (!el || el.dataset.revealInitialized === 'true') return;
+    el.dataset.revealInitialized = 'true';
+    el.classList.add('reveal');
+
+    const delay = typeof delayFn === 'function'
+      ? Number(delayFn({ index, el })) || 0
+      : delayStep * index;
+
+    el.style.setProperty('--reveal-delay', `${Math.max(0, delay)}ms`);
+
+    if (revealObserver) {
+      revealObserver.observe(el);
+    } else {
+      el.classList.add('is-visible');
+    }
+
+    index += 1;
+  });
+}
+
 function showProjectsLoader(count = 6) {
   if (!grid) return;
   grid.setAttribute('aria-busy', 'true');
@@ -130,6 +178,22 @@ function renderProjects(list) {
         ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">View on GitHub</a>` : ''}
       </div>    </article>
   `).join('');
+
+  requestAnimationFrame(() => {
+    const cards = Array.from(grid.querySelectorAll('.project.card'));
+    if (!cards.length) return;
+
+    const rowDelays = new Map();
+
+    addReveal(cards, {
+      delayFn: ({ el }) => {
+        const top = Math.round(el.offsetTop);
+        const count = rowDelays.get(top) || 0;
+        rowDelays.set(top, count + 1);
+        return count * 90;
+      }
+    });
+  });
 }
 
 // Init render with loader
@@ -226,3 +290,24 @@ sections.forEach(s => {
   const el = document.getElementById(s.id);
   if (el) observer.observe(el);
 });
+
+const projectsSection = document.getElementById('projects');
+
+document.querySelectorAll('main section').forEach(section => {
+  const children = Array.from(section.children);
+  const nextArticles = Array.from(section.querySelectorAll('article:not(.project)'));
+
+  if (projectsSection && section === projectsSection) {
+    const nonGridChildren = children.filter(child => child !== grid);
+    addReveal(nonGridChildren, { delayStep: 80 });
+  } else {
+    addReveal(children, { delayStep: 80 });
+  }
+
+  if (nextArticles.length) {
+    addReveal(nextArticles, { delayStep: 70 });
+  }
+});
+
+addReveal(document.querySelectorAll('.skills .skill'), { delayStep: 40 });
+addReveal(document.querySelectorAll('.timeline .tl-item'), { delayStep: 40 });
