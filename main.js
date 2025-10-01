@@ -410,6 +410,7 @@ if (menuBtn && navLinks) {
 const sections = [
   { id: 'hero', link: document.querySelector('.nav-link[href="#hero"]') },      // if you add it later
   { id: 'projects', link: document.querySelector('.nav-link[href="#projects"]') },
+  { id: 'github', link: document.querySelector('.nav-link[href="#github"]') },
   { id: 'cv', link: document.querySelector('.nav-link[href="#cv"]') },
   { id: 'footer', link: document.querySelector('.nav-link[href="#footer"]') }
 ].filter(s => s.link);

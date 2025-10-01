@@ -341,6 +341,12 @@ p.lead {
   max-width: 65ch;
 }
 
+.section-lead {
+  margin: 4px 0 32px;
+  max-width: 60ch;
+  color: var(--muted);
+}
+
 /* Hero */
 .hero {
   display: grid;
@@ -532,6 +538,51 @@ p.lead {
   gap: 16px;
 }
 
+.github-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.github-card {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.github-card__meta {
+  margin: -6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.github-card img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) - 6px);
+  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
+}
+
+.github-pins {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.github-pins img {
+  width: 100%;
+  height: auto;
+}
+
+.github-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
 /* Projects: loader (skeleton) */
 .project.skeleton {
   grid-column: span 4;
@@ -572,9 +623,11 @@ p.lead {
 
 @media (max-width: 900px) {
   .project.skeleton { grid-column: span 6; }
+  .github-card { grid-column: span 12; }
 }
 @media (max-width: 600px) {
   .project.skeleton { grid-column: span 12; }
+  .section-lead { margin-bottom: 24px; }
 }
 
 .project-links {

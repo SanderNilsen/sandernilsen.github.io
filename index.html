@@ -50,6 +50,7 @@
 
         <nav id="primary-nav" class="nav-links" aria-label="Primary">
           <a class="nav-link" href="#projects">Projects</a>
+          <a class="nav-link" href="#github">GitHub</a>
           <a class="nav-link" href="#cv">CV</a>
           <a class="nav-link" href="#footer">Contact</a>
         </nav>
@@ -136,6 +137,72 @@
           <button class="chip" aria-pressed="false" data-filter="design">Design</button>
         </div>
         <div class="grid" id="project-grid" aria-live="polite"></div>
+      </section>
+
+      <!-- GITHUB -->
+      <section id="github" class="container" aria-labelledby="github-title">
+        <h2 id="github-title">GitHub</h2>
+        <p class="section-lead">
+          A snapshot of what I am building, how often I contribute, and where you can
+          dive deeper into my code.
+        </p>
+        <div class="github-grid">
+          <article class="card github-card">
+            <h3>Contribution Activity</h3>
+            <p class="github-card__meta">Rolling 12 months of commits and pull requests.</p>
+            <img
+              src="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=38BDF8&ring=A78BFA&currStreakLabel=38BDF8&sideNums=E6E6F0&currStreakNum=E6E6F0&sideLabels=A7B0C5"
+              alt="GitHub contribution streak stats for Sander Nilsen"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="320"
+            />
+          </article>
+
+          <article class="card github-card">
+            <h3>Languages & Featured Repos</h3>
+            <p class="github-card__meta">Quick view of the tech I use most and current focus projects.</p>
+            <img
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=SanderNilsen&layout=compact&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0"
+              alt="Top languages used across Sander Nilsen's public repositories"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="320"
+            />
+            <div class="github-pins" role="group" aria-label="Featured repositories">
+              <img
+                src="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
+                alt="Pinned repository: RainyDays"
+                loading="lazy"
+                decoding="async"
+                width="450"
+                height="180"
+              />
+              <img
+                src="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
+                alt="Pinned repository: Semester-Project-2-AuctionHouse"
+                loading="lazy"
+                decoding="async"
+                width="450"
+                height="180"
+              />
+            </div>
+          </article>
+        </div>
+
+        <div class="github-actions">
+          <a
+            class="btn btn-soft"
+            href="https://github.com/SanderNilsen"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span>Visit my GitHub</span>
+          </a>
+        </div>
       </section>
 
       <!-- CV -->
