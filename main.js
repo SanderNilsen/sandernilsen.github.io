@@ -82,6 +82,7 @@ if (themeToggleBtn) {
   const storageKey = 'portfolio-theme';
   const root = document.documentElement;
   const labelEl = themeToggleBtn.querySelector('.theme-toggle__label');
+  const themeMediaSelector = '[data-theme-src-light][data-theme-src-dark]';
   const prefersLightQuery = window.matchMedia
     ? window.matchMedia('(prefers-color-scheme: light)')
     : { matches: false };
@@ -111,9 +112,19 @@ if (themeToggleBtn) {
     }
   };
 
+  const updateThemeMedia = theme => {
+    document.querySelectorAll(themeMediaSelector).forEach(img => {
+      const targetSrc = theme === 'dark' ? img.dataset.themeSrcDark : img.dataset.themeSrcLight;
+      if (targetSrc && img.getAttribute('src') !== targetSrc) {
+        img.setAttribute('src', targetSrc);
+      }
+    });
+  };
+
   const applyTheme = theme => {
     root.setAttribute('data-theme', theme);
     setToggleState(theme);
+    updateThemeMedia(theme);
   };
 
   let userPreferredTheme = null;
