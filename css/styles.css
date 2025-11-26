@@ -129,6 +129,22 @@ a:hover {
   font-weight: 700;
   letter-spacing: .2px;
   color: var(--txt);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--txt) 80%, var(--bg));
+  background: color-mix(in srgb, var(--brand) 18%, var(--bg-elev));
+  border: 1px solid color-mix(in srgb, var(--brand) 40%, transparent);
 }
 
 /* Desktop nav */
@@ -153,12 +169,12 @@ a:hover {
   display: inline-flex;
   align-items: center;
   padding: 8px 12px;
-  border-radius: 9999px;
+  border-radius: 12px;
   color: var(--txt);
   text-decoration: none;
   border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
   background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
-  transition: border-color .2s ease, transform .15s ease;
+  transition: border-color .2s ease, background .2s ease, transform .15s ease;
 }
 
 .nav-link::after {
@@ -176,28 +192,34 @@ a:hover {
 
 .nav-link:hover {
   border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+  background: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
 }
 
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
   background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
   color: var(--txt);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color .2s ease, background .2s ease, transform .15s ease;
+  box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+  transition:
+    box-shadow .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    transform .15s ease;
   appearance: none;
 }
 
 .theme-toggle:hover {
   border-color: color-mix(in srgb, var(--brand) 35%, var(--muted));
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), color-mix(in srgb, var(--bg-elev) 95%, transparent));
+  background: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
 .theme-toggle:active {
@@ -421,44 +443,24 @@ p.lead {
 /* Base card utility */
 .card {
   position: relative;
-  background: var(--bg-elev);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-elev) 90%, transparent), var(--bg-elev));
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
 }
 
-/* Hover glow effect */
+/* Subtle lift + border accent keeps hover feeling calm */
 .card:hover {
-  border-color: transparent;
-  box-shadow: 0 0 25px 5px rgba(56,189,248,0.6), 
-              0 0 35px 10px rgba(167,139,250,0.5);
-}
-
-/* Animated gradient border */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px; /* thickness of the glowing border */
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.card:hover::before {
-  opacity: 1;
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--muted));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 4%, var(--bg-elev)), var(--bg-elev));
+  box-shadow: 0 18px 35px rgba(0, 0, 0, .25);
 }
 
 /* Keep hover depth subtle; moving line provides emphasis */
@@ -475,15 +477,25 @@ p.lead {
   display: inline-flex;
   align-items: center;
   gap: .6rem;
+  justify-content: center;
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid var(--btn-border);
-  background: linear-gradient(180deg, var(--btn-bg), color-mix(in srgb, var(--bg-elev) 92%, transparent));
+  background: var(--btn-bg);
   color: var(--txt);
   text-decoration: none;
   line-height: 1;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
   box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
-  transition: box-shadow .2s ease, border-color .2s ease, outline-offset .2s ease;
+  transition:
+    box-shadow .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    outline-offset .2s ease,
+    transform .15s ease;
+  appearance: none;
 }
 
 /* Icon sizing */
@@ -493,18 +505,19 @@ p.lead {
 
 /* Hover / active */
 .btn:hover {
-  background: linear-gradient(180deg, var(--btn-hover-bg), color-mix(in srgb, var(--bg-elev) 94%, transparent));
+  background: var(--btn-hover-bg);
   border-color: color-mix(in srgb, var(--brand) 35%, var(--btn-border));
   box-shadow: var(--btn-shadow);
 }
 
-/* Variants */
-.btn.btn-soft {
-  --btn-bg: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
-  --btn-hover-bg: color-mix(in srgb, var(--brand) 16%, var(--bg-elev));
-  border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
+.btn:active {
+  transform: translateY(1px);
 }
-/* (removed unused #kontakt mobile rule) */
+
+.btn:focus-visible {
+  outline: var(--ring);
+  outline-offset: 2px;
+}
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -525,6 +538,8 @@ p.lead {
   background: color-mix(in srgb, var(--bg-elev) 70%, transparent);
   border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
   cursor: pointer;
+  color: var(--txt);
+  font-weight: 600;
 }
 
 .chip[aria-pressed="true"] {
@@ -861,18 +876,8 @@ p.lead {
 
 /* Toggle button below timeline */
 .tl-toggle {
-  margin: 10px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
-  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
-  color: var(--txt);
-  cursor: pointer;
-  font-size: .95rem;
-}
-
-.tl-toggle:hover {
-  border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
+  margin: 12px 0 0;
+  align-self: flex-start;
 }
 
 /* Small screens: give a bit more room before clamping */
@@ -888,17 +893,21 @@ p.lead {
 }
 
 /* .cv .card inherits base card styles */
+.cv .card {
+  height: 100%;
+}
+
+.cv .card:hover {
+  transform: none; /* prevent layout shift between the two columns */
+}
 
 .cv h3 {
   margin: 3px 0 10px;
 }
-button {
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--txt));
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 20%, transparent), transparent);
-  color: var(--txt);
-  cursor: pointer;
+
+.tl-toggle {
+  margin: 12px 0 0;
+  align-self: flex-start;
 }
 
 /* Contact card */
