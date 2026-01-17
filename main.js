@@ -224,7 +224,7 @@ const projects = [
     title: 'JS Frameworks CA',
     type: 'app',
     tags: ['React'],
-    img: 'images/js-frameworks-ca.png',
+    img: 'images/JS-Frameworks-CA.png',
     desc: 'This project is a React-based eCommerce application built as part of the Noroff Front-End Frameworks course assignment.\n\nThe application demonstrates usage of React with routing, API integration, global state management, form validation, and styled-components.',
     url: 'https://noroff-react-ca.netlify.app/',
     github: 'https://github.com/SanderNilsen/js-frameworks-ca'
