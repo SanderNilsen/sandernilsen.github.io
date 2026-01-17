@@ -204,7 +204,7 @@ const projects = [
   {
     title: 'LinkUp',
     type: 'app',
-    tags: ['Html', 'CSS', 'JS'],
+    tags: ['HTML', 'CSS', 'JS'],
     img: 'images/websitedesign-linkup.png',
     desc: 'A simple social media application built using HTML, SASS, Bootstrap, and NPM. The application features user authentication, a feed page, and a profile page, along with responsive design and SCSS customizations.',
     url: 'https://linkup-css-frameworks.netlify.app/',
@@ -219,6 +219,16 @@ const projects = [
     url: 'https://semester-project-2-auctionhouse.netlify.app/index.html',
     github: 'https://github.com/SanderNilsen/Semester-Project-2-AuctionHouse'
   },  
+
+  {
+    title: 'JS Frameworks CA',
+    type: 'app',
+    tags: ['React'],
+    img: 'images/js-frameworks-ca.png',
+    desc: 'This project is a React-based eCommerce application built as part of the Noroff Front-End Frameworks course assignment.\n\nThe application demonstrates usage of React with routing, API integration, global state management, form validation, and styled-components.',
+    url: 'https://noroff-react-ca.netlify.app/',
+    github: 'https://github.com/SanderNilsen/js-frameworks-ca'
+  }, 
 
 ];
 
