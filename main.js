@@ -429,7 +429,7 @@ if (menuBtn && navLinks) {
 
 // Active section highlight
 const sections = [
-  { id: 'hero', link: document.querySelector('.nav-link[href="#hero"]') },      // if you add it later
+  { id: 'hero', link: document.querySelector('.nav-link[href="#hero"]') },
   { id: 'projects', link: document.querySelector('.nav-link[href="#projects"]') },
   { id: 'github', link: document.querySelector('.nav-link[href="#github"]') },
   { id: 'cv', link: document.querySelector('.nav-link[href="#cv"]') },
