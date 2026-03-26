@@ -472,3 +472,104 @@ document.querySelectorAll('main section').forEach(section => {
 
 addReveal(document.querySelectorAll('.skills .skill'), { delayStep: 40 });
 addReveal(document.querySelectorAll('.timeline .tl-item'), { delayStep: 40 });
+
+// GitHub stats fallback support
+(function setupGithubStatFallbacks() {
+  const statImages = document.querySelectorAll('img[data-github-stat]');
+  if (!statImages.length) return;
+
+  const getBaseSrcForTheme = img => {
+    const themePref = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    if (themePref === 'light') {
+      return img.dataset.themeSrcLight || img.dataset.themeSrcDark || img.dataset.githubSrcBase || img.getAttribute('src');
+    }
+    return img.dataset.themeSrcDark || img.dataset.themeSrcLight || img.dataset.githubSrcBase || img.getAttribute('src');
+  };
+
+  statImages.forEach(img => {
+    if (!img.dataset.githubSrcBase) {
+      img.dataset.githubSrcBase = img.getAttribute('src') || '';
+    }
+
+    const label = img.dataset.githubLabel || 'GitHub stats';
+    const link = img.dataset.githubLink || 'https://github.com/SanderNilsen';
+    const retryText = { idle: 'Try again', loading: 'Retrying...' };
+
+    const findFallback = () => {
+      const next = img.nextElementSibling;
+      return next && next.classList.contains('github-fallback') ? next : null;
+    };
+
+    const setRetryButtonState = state => {
+      const fallback = findFallback();
+      if (!fallback) return;
+      const btn = fallback.querySelector('[data-github-retry]');
+      if (!btn) return;
+      if (state === 'loading') {
+        btn.disabled = true;
+        btn.textContent = retryText.loading;
+      } else {
+        btn.disabled = false;
+        btn.textContent = retryText.idle;
+      }
+    };
+
+    const hideFallback = (resetButtonState = true) => {
+      const fallback = findFallback();
+      if (fallback) {
+        fallback.hidden = true;
+      }
+      img.classList.remove('github-stat--hidden');
+      if (resetButtonState) {
+        setRetryButtonState('idle');
+      }
+    };
+
+    const reloadImage = () => {
+      const src = getBaseSrcForTheme(img);
+      if (!src) return;
+      setRetryButtonState('loading');
+      hideFallback(false);
+      const bustParam = src.includes('?') ? '&' : '?';
+      img.src = `${src}${bustParam}reload=${Date.now()}`;
+    };
+
+    const ensureFallback = () => {
+      let fallback = findFallback();
+      if (!fallback) {
+        fallback = document.createElement('div');
+        fallback.className = 'github-fallback';
+        fallback.setAttribute('role', 'status');
+        fallback.innerHTML = `
+          <p class="github-fallback__text">${label} is temporarily unavailable. These GitHub visuals sometimes hit rate limits.</p>
+          <div class="github-fallback__actions">
+            <button type="button" class="btn btn-sm" data-github-retry>${retryText.idle}</button>
+            <a class="btn btn-sm btn-ghost" href="${link}" target="_blank" rel="noopener">Open on GitHub</a>
+          </div>
+        `;
+        fallback.hidden = true;
+        img.insertAdjacentElement('afterend', fallback);
+      }
+
+      const retryBtn = fallback.querySelector('[data-github-retry]');
+      if (retryBtn && !retryBtn.dataset.githubRetryBound) {
+        retryBtn.dataset.githubRetryBound = 'true';
+        retryBtn.addEventListener('click', reloadImage);
+      }
+
+      return fallback;
+    };
+
+    const showFallback = () => {
+      const fallback = ensureFallback();
+      if (fallback) {
+        fallback.hidden = false;
+      }
+      img.classList.add('github-stat--hidden');
+      setRetryButtonState('idle');
+    };
+
+    img.addEventListener('error', showFallback);
+    img.addEventListener('load', () => hideFallback());
+  });
+})();

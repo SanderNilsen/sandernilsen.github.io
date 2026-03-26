@@ -602,6 +602,36 @@ p.lead {
   justify-content: center;
 }
 
+.github-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border-radius: calc(var(--radius) - 6px);
+  border: 1px dashed color-mix(in srgb, var(--muted) 35%, transparent);
+  background: color-mix(in srgb, var(--bg-elev) 75%, transparent);
+}
+
+.github-fallback__text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.github-fallback__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.github-fallback__actions .btn {
+  flex: 0 0 auto;
+}
+
+.github-stat--hidden {
+  display: none !important;
+}
+
 /* Projects: loader (skeleton) */
 .project.skeleton {
   grid-column: span 4;
