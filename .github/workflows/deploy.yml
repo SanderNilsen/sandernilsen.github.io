@@ -1,4 +1,4 @@
-name: Deploy to Uniweb
+name: Deploy to Uniweb (SFTP)
 
 on:
   push:
@@ -13,10 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Deploy site
+      - name: Deploy via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ssh.cg7zrcp0z.service.one
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ./
+          protocol: sftp
+          port: 22
+          server-dir: r200249/
