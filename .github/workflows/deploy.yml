@@ -1,4 +1,4 @@
-name: Deploy to Uniweb
+name: Deploy via SSH
 
 on:
   push:
@@ -13,10 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Deploy site
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ./public_html/
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add known host
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 22 ssh.cg7zrcp0z.service.one >> ~/.ssh/known_hosts
+
+      - name: Deploy files
+        run: |
+          rsync -avz --delete \
+            --exclude ".git*" \
+            --exclude ".github" \
+            --exclude "README.md" \
+            -e "ssh -p 22" \
+            ./ cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:r200249/
