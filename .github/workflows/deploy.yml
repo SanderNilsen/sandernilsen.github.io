@@ -1,4 +1,4 @@
-name: Deploy via SSH
+name: Deploy to Uniweb
 
 on:
   push:
@@ -13,14 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
-      - name: Deploy via rsync over SSH
-        env:
-          SSH_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ \
-            cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:r200249/
+      - name: Deploy site
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html
