@@ -23,11 +23,20 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -p 22 ssh.cg7zrcp0z.service.one >> ~/.ssh/known_hosts
 
-      - name: Deploy files
+      - name: Deploy to sandernilsen.no
         run: |
-          rsync -avz --delete \
+          rsync -avz \
             --exclude ".git*" \
             --exclude ".github" \
             --exclude "README.md" \
             -e "ssh -p 22" \
-            ./ cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:r200249/
+            ./ cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:/run/webroots/by-route/sandernilsen.no_/
+
+      - name: Deploy to www.sandernilsen.no
+        run: |
+          rsync -avz \
+            --exclude ".git*" \
+            --exclude ".github" \
+            --exclude "README.md" \
+            -e "ssh -p 22" \
+            ./ cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:/run/webroots/by-route/www.sandernilsen.no_/
