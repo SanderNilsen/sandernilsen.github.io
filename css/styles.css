@@ -703,6 +703,12 @@ p.lead {
   display: flex;
   flex-direction: column;
   gap: 11px;
+  cursor: pointer;
+}
+
+.project:focus-visible {
+  outline: var(--ring);
+  outline-offset: 3px;
 }
 
 .project figure {
@@ -738,6 +744,130 @@ p.lead {
   padding: 3px 8px;
   border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
   border-radius: 9999px;
+}
+
+.project-modal-open {
+  overflow: hidden;
+}
+
+.project-modal[hidden] {
+  display: none;
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+}
+
+.project-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, .72);
+  backdrop-filter: blur(8px);
+}
+
+.project-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 860px);
+  max-height: min(86vh, 820px);
+  overflow: auto;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--brand) 32%, var(--muted));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 7%, var(--bg-elev)), var(--bg-elev));
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .45);
+  transform: translateY(10px) scale(.98);
+  transition: transform .2s ease;
+}
+
+.project-modal.is-open .project-modal__panel {
+  transform: none;
+}
+
+.project-modal__panel:focus {
+  outline: none;
+}
+
+.project-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid color-mix(in srgb, var(--muted) 24%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg-elev) 86%, transparent);
+  color: var(--txt);
+  cursor: pointer;
+}
+
+.project-modal__close:hover {
+  border-color: color-mix(in srgb, var(--brand) 42%, var(--muted));
+  background: color-mix(in srgb, var(--brand) 12%, var(--bg-elev));
+}
+
+.project-modal__close:focus-visible {
+  outline: var(--ring);
+  outline-offset: 2px;
+}
+
+.project-modal__image {
+  display: block;
+  width: 100%;
+  max-height: 390px;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--bg-elev) 80%, transparent);
+}
+
+.project-modal__content {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.project-modal__type {
+  margin: 0;
+  color: var(--brand);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.project-modal__content h3 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.project-modal__description {
+  margin: 0;
+  color: var(--muted);
+}
+
+.project-modal__tags,
+.project-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-modal__actions {
+  margin-top: 6px;
 }
 
 /* Skills list layout */

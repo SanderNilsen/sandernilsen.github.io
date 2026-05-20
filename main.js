@@ -317,8 +317,15 @@ function preloadProjectImages(list) {
 function renderProjects(list) {
   if (!grid) return;
 
-  grid.innerHTML = list.map(project => `
-    <article class="project card" data-type="${project.type}">
+  grid.innerHTML = list.map((project, index) => `
+    <article
+      class="project card"
+      data-type="${project.type}"
+      data-project-index="${index}"
+      role="button"
+      tabindex="0"
+      aria-label="Open ${project.title} project details"
+    >
       <figure>
         <img
           src="${project.img}"
@@ -356,6 +363,116 @@ function renderProjects(list) {
   });
 }
 
+let activeProjectList = projects;
+let lastProjectTrigger = null;
+
+function getProjectModal() {
+  let modal = document.getElementById('project-modal');
+  if (modal) return modal;
+
+  modal = document.createElement('div');
+  modal.className = 'project-modal';
+  modal.id = 'project-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', 'project-modal-title');
+  modal.hidden = true;
+  modal.innerHTML = `
+    <div class="project-modal__backdrop" data-project-modal-close></div>
+    <article class="project-modal__panel" tabindex="-1">
+      <button class="project-modal__close" type="button" aria-label="Close project details" data-project-modal-close>
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <img class="project-modal__image" alt="" width="1000" height="625" />
+      <div class="project-modal__content">
+        <p class="project-modal__type"></p>
+        <h3 id="project-modal-title"></h3>
+        <p class="project-modal__description"></p>
+        <div class="project-modal__tags"></div>
+        <div class="project-modal__actions"></div>
+      </div>
+    </article>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', event => {
+    if (event.target.closest('[data-project-modal-close]')) {
+      closeProjectModal();
+    }
+  });
+
+  return modal;
+}
+
+function openProjectModal(project, trigger) {
+  const modal = getProjectModal();
+  const panel = modal.querySelector('.project-modal__panel');
+  const image = modal.querySelector('.project-modal__image');
+  const title = modal.querySelector('#project-modal-title');
+  const type = modal.querySelector('.project-modal__type');
+  const description = modal.querySelector('.project-modal__description');
+  const tags = modal.querySelector('.project-modal__tags');
+  const actions = modal.querySelector('.project-modal__actions');
+
+  lastProjectTrigger = trigger;
+  image.src = project.img;
+  image.alt = `Skjermbilde: ${project.title}`;
+  title.textContent = project.title;
+  type.textContent = project.type;
+  description.textContent = project.desc;
+  tags.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+  actions.innerHTML = `
+    <a href="${project.url}" target="_blank" rel="noopener" class="btn">Live Website</a>
+    ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>` : ''}
+  `;
+
+  modal.hidden = false;
+  document.body.classList.add('project-modal-open');
+  requestAnimationFrame(() => {
+    modal.classList.add('is-open');
+    panel.focus();
+  });
+}
+
+function closeProjectModal() {
+  const modal = document.getElementById('project-modal');
+  if (!modal || modal.hidden) return;
+
+  modal.classList.remove('is-open');
+  document.body.classList.remove('project-modal-open');
+  modal.hidden = true;
+
+  if (lastProjectTrigger) {
+    lastProjectTrigger.focus();
+    lastProjectTrigger = null;
+  }
+}
+
+if (grid) {
+  grid.addEventListener('click', event => {
+    if (event.target.closest('a')) return;
+    const card = event.target.closest('.project.card');
+    if (!card) return;
+    openProjectModal(activeProjectList[Number(card.dataset.projectIndex)], card);
+  });
+
+  grid.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    if (event.target.closest('a')) return;
+    const card = event.target.closest('.project.card');
+    if (!card) return;
+    event.preventDefault();
+    openProjectModal(activeProjectList[Number(card.dataset.projectIndex)], card);
+  });
+}
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeProjectModal();
+  }
+});
+
 // Init render with loader
 (async function initProjects() {
   showProjectsLoader();
@@ -382,10 +499,11 @@ chips.forEach(chip => {
     // Filter projects
     const filter = chip.dataset.filter;
     if (filter === 'all') {
-      renderProjects(projects);
+      activeProjectList = projects;
     } else {
-      renderProjects(projects.filter(p => p.type === filter));
+      activeProjectList = projects.filter(p => p.type === filter);
     }
+    renderProjects(activeProjectList);
   });
 });
 
