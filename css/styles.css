@@ -553,6 +553,16 @@ p.lead {
   gap: 16px;
 }
 
+.project-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px dashed color-mix(in srgb, var(--muted) 30%, transparent);
+  border-radius: 12px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--bg-elev) 65%, transparent);
+}
+
 .github-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -741,9 +751,20 @@ p.lead {
 
 .tag {
   font-size: 13px;
-  padding: 3px 8px;
-  border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
-  border-radius: 9999px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 6px 9px;
+  border: 1px solid color-mix(in srgb, var(--muted) 28%, transparent);
+  border-radius: 7px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
+}
+
+.tag::before {
+  width: 5px;
+  height: 5px;
+  background: color-mix(in srgb, var(--brand) 65%, var(--muted));
+  box-shadow: none;
 }
 
 .project-modal-open {
@@ -760,7 +781,7 @@ p.lead {
   z-index: 60;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 32px;
   opacity: 0;
   transition: opacity .2s ease;
 }
@@ -779,8 +800,8 @@ p.lead {
 .project-modal__panel {
   position: relative;
   z-index: 1;
-  width: min(100%, 860px);
-  max-height: min(86vh, 820px);
+  width: min(100%, 900px);
+  max-height: calc(100dvh - 64px);
   overflow: auto;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--brand) 32%, var(--muted));
@@ -828,15 +849,15 @@ p.lead {
 .project-modal__image {
   display: block;
   width: 100%;
-  max-height: 390px;
-  object-fit: cover;
+  height: clamp(220px, 42dvh, 420px);
+  object-fit: contain;
   background: color-mix(in srgb, var(--bg-elev) 80%, transparent);
 }
 
 .project-modal__content {
   display: grid;
-  gap: 14px;
-  padding: 24px;
+  gap: 16px;
+  padding: 32px;
 }
 
 .project-modal__type {
@@ -868,6 +889,39 @@ p.lead {
 
 .project-modal__actions {
   margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+  .project-modal {
+    align-items: start;
+    padding: 12px;
+  }
+
+  .project-modal__panel {
+    width: 100%;
+    max-height: calc(100dvh - 24px);
+    border-radius: 14px;
+  }
+
+  .project-modal__close {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .project-modal__image {
+    height: clamp(170px, 32dvh, 260px);
+  }
+
+  .project-modal__content {
+    gap: 13px;
+    padding: 24px 18px 20px;
+  }
+
+  .project-modal__actions .btn {
+    flex: 1 1 100%;
+  }
 }
 
 /* Skills list layout */

@@ -172,12 +172,26 @@ if (yearEl) {
 }
 
 // Project data
+
+const projectTypeLabels = {
+  noroff: 'Noroff',
+  personal: 'Personal'
+};
    
 const projects = [
   {
+    title: 'Holidaze',
+    type: 'noroff',
+    tags: ['Project Exam'],
+    img: 'images/Holidaze-Website-Design.png',
+    desc: 'Project Exam 2: a modern accommodation booking application where users can browse venues, make bookings, and manage venue listings through the Holidaze API.',
+    url: 'https://holidaze-react.netlify.app/',
+    github: 'https://github.com/SanderNilsen/project-exam-2-holidaze'
+  },
+  {
     title: 'RainyDays',
-    type: 'web',
-    tags: ['HTML', 'CSS', 'JS'],
+    type: 'noroff',
+    tags: ['Course Assignment'],
     img: "images/RainyDays-Website-Design.png",
     desc: 'The Rainy Days course assignment is a simple e-commerce website for selling clothing items made with HTML, CSS and JavaScript.',
     url: 'https://classy-duckanoo-15bd80.netlify.app/',
@@ -185,8 +199,8 @@ const projects = [
   },
   {
     title: 'Community Science Museum',
-    type: 'web',
-    tags: ['HTML', 'CSS'],
+    type: 'noroff',
+    tags: ['Semester Project'],
     img: 'images/CMS-Website-Design.png',
     desc: 'Noroff semester project 1, creating a website for "Community Science Museum" in HTML and CSS.',
     url: 'https://jovial-frangipane-060223.netlify.app/',
@@ -194,8 +208,8 @@ const projects = [
   },
   {
     title: 'LofotenPeaks',
-    type: 'web',
-    tags: ['HTML', 'CSS', 'JS', 'WP'],
+    type: 'noroff',
+    tags: ['Project Exam'],
     img: 'images/Websitedesign.png',
     desc: 'This project involves creating a custom blog website using HTML, CSS, and JavaScript, with content managed through a WordPress installation acting as a Headless CMS.',
     url: 'https://lofotenpeaks.netlify.app/',
@@ -203,8 +217,8 @@ const projects = [
   },
   {
     title: 'LinkUp',
-    type: 'app',
-    tags: ['HTML', 'CSS', 'JS'],
+    type: 'noroff',
+    tags: ['Course Assignment'],
     img: 'images/websitedesign-linkup.png',
     desc: 'A simple social media application built using HTML, SASS, Bootstrap, and NPM. The application features user authentication, a feed page, and a profile page, along with responsive design and SCSS customizations.',
     url: 'https://linkup-css-frameworks.netlify.app/',
@@ -212,8 +226,8 @@ const projects = [
   },
   {
     title: 'Auction House',
-    type: 'web',
-    tags: ['HTML', 'CSS', 'JS'],
+    type: 'noroff',
+    tags: ['Semester Project'],
     img: 'images/Website-Design-AH.png',
     desc: 'A functional auction platform where users can buy and sell items using a credit-based system. New users receive 1,000 credits upon registration, which they can use to bid on items. Additional credits are earned by selling items.',
     url: 'https://semester-project-2-auctionhouse.netlify.app/index.html',
@@ -222,8 +236,8 @@ const projects = [
 
   {
     title: 'JS Frameworks CA',
-    type: 'app',
-    tags: ['React'],
+    type: 'noroff',
+    tags: ['Course Assignment'],
     img: 'images/JS-Frameworks-CA.png',
     desc: 'This project is a React-based eCommerce application built as part of the Noroff Front-End Frameworks course assignment.\n\nThe application demonstrates usage of React with routing, API integration, global state management, form validation, and styled-components.',
     url: 'https://noroff-react-ca.netlify.app/',
@@ -317,6 +331,15 @@ function preloadProjectImages(list) {
 function renderProjects(list) {
   if (!grid) return;
 
+  if (!list.length) {
+    grid.innerHTML = `
+      <p class="project-empty">
+        No personal projects added yet.
+      </p>
+    `;
+    return;
+  }
+
   grid.innerHTML = list.map((project, index) => `
     <article
       class="project card"
@@ -341,8 +364,14 @@ function renderProjects(list) {
         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
       </div>
       <div class="project-links">
-        <a href="${project.url}" target="_blank" rel="noopener" class="btn btn-sm">Live Website</a>
-        ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">View on GitHub</a>` : ''}
+        <a href="${project.url}" target="_blank" rel="noopener" class="btn btn-sm">
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          <span>Live Website</span>
+        </a>
+        ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span>View on GitHub</span>
+        </a>` : ''}
       </div>    </article>
   `).join('');
 
@@ -419,12 +448,18 @@ function openProjectModal(project, trigger) {
   image.src = project.img;
   image.alt = `Skjermbilde: ${project.title}`;
   title.textContent = project.title;
-  type.textContent = project.type;
+  type.textContent = projectTypeLabels[project.type] || project.type;
   description.textContent = project.desc;
   tags.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
   actions.innerHTML = `
-    <a href="${project.url}" target="_blank" rel="noopener" class="btn">Live Website</a>
-    ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>` : ''}
+    <a href="${project.url}" target="_blank" rel="noopener" class="btn">
+      <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      <span>Live Website</span>
+    </a>
+    ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener" class="btn btn-ghost">
+      <i class="fa-brands fa-github" aria-hidden="true"></i>
+      <span>View on GitHub</span>
+    </a>` : ''}
   `;
 
   modal.hidden = false;
