@@ -549,11 +549,6 @@ document.addEventListener('keydown', event => {
   }
 });
 
-// Animate skill bars from 0% to their set --level
-document.querySelectorAll('.skills').forEach(list => {
-  requestAnimationFrame(() => list.classList.add('animate'));
-});
-
 // Timeline clamp toggle
 document.querySelectorAll('.tl-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -623,7 +618,7 @@ document.querySelectorAll('main section').forEach(section => {
   }
 });
 
-addReveal(document.querySelectorAll('.skills .skill'), { delayStep: 40 });
+addReveal(document.querySelectorAll('.focus-list li'), { delayStep: 40 });
 addReveal(document.querySelectorAll('.timeline .tl-item'), { delayStep: 40 });
 
 // GitHub stats fallback support
