@@ -69,4 +69,4 @@ No build step is required.
 
 ## Contact
 - LinkedIn: https://www.linkedin.com/in/sandernilsen/
-- GitHub: https://github.com/SanderNilsen
+- GitHub: https://github.com/SanderNilsen 
