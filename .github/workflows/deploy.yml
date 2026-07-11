@@ -46,7 +46,7 @@ jobs:
 
       - name: Check deployment target
         run: |
-          ssh -p 22 -o BatchMode=yes -o PreferredAuthentications=publickey "$DEPLOY_USER@$DEPLOY_HOST" "
+          ssh -p 22 -o BatchMode=yes -o PreferredAuthentications=publickey -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" "
             test -d '$DEPLOY_PATH' &&
             test -w '$DEPLOY_PATH' &&
             echo 'Deploy target is writable: $DEPLOY_PATH'
@@ -58,5 +58,5 @@ jobs:
             --exclude ".git*" \
             --exclude ".github" \
             --exclude "README.md" \
-            -e "ssh -p 22 -o BatchMode=yes -o PreferredAuthentications=publickey" \
+            -e "ssh -p 22 -o BatchMode=yes -o PreferredAuthentications=publickey -o IdentitiesOnly=yes" \
             ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
