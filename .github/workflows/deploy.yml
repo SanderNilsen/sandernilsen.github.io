@@ -11,6 +11,7 @@ jobs:
     env:
       FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_ROUTE: ${{ secrets.FTP_ROUTE }}
 
     steps:
       - name: Checkout code
@@ -25,6 +26,9 @@ jobs:
         run: |
           test -n "$FTP_USERNAME" || { echo "::error::Missing FTP_USERNAME secret"; exit 1; }
           test -n "$FTP_SERVER" || { echo "::error::Missing FTP_SERVER secret"; exit 1; }
+          test -n "$FTP_ROUTE" || { echo "::error::Missing FTP_ROUTE secret"; exit 1; }
+          test "$FTP_ROUTE" != "/" || { echo "::error::FTP_ROUTE must not be /"; exit 1; }
+          test "$FTP_ROUTE" != "." || { echo "::error::FTP_ROUTE must not be ."; exit 1; }
 
       - name: Add known host
         run: |
@@ -38,7 +42,7 @@ jobs:
             --exclude ".github" \
             --exclude "README.md" \
             -e "ssh -p 22" \
-            ./ "$FTP_USERNAME@$FTP_SERVER:/run/webroots/by-route/sandernilsen.no_/"
+            ./ "$FTP_USERNAME@$FTP_SERVER:$FTP_ROUTE"
 
       - name: Purge Uniweb cache
         run: ssh -p 22 "$FTP_USERNAME@$FTP_SERVER" cache-purge
