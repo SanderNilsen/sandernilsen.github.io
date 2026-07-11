@@ -31,3 +31,6 @@ jobs:
             --exclude "README.md" \
             -e "ssh -p 22" \
             ./ cg7zrcp0z_h5357394@ssh.cg7zrcp0z.service.one:/run/webroots/by-route/sandernilsen.no_/
+
+      - name: Purge Uniweb cache
+        run: ssh -p 22 cg7zrcp0z_h5357394@ssh.cg7zrcp0z.service.one cache-purge
