@@ -212,7 +212,7 @@ const projects = [
     tags: ['Project Exam'],
     img: 'images/Websitedesign.png',
     desc: 'This project involves creating a custom blog website using HTML, CSS, and JavaScript, with content managed through a WordPress installation acting as a Headless CMS.',
-    url: 'https://lofotenpeaks.netlify.app/',
+    url: 'https://lofotenpeaks-blog.netlify.app/',
     github: 'https://github.com/Noroff-FEU-Assignments/project-exam-1-SanderNilsen'
   },
   {
