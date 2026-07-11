@@ -8,6 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
 
     steps:
       - name: Checkout code
@@ -18,10 +22,32 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Check required secrets
+        run: |
+          test -n "$DEPLOY_HOST" || { echo "::error::Missing DEPLOY_HOST secret"; exit 1; }
+          test -n "$DEPLOY_USER" || { echo "::error::Missing DEPLOY_USER secret"; exit 1; }
+          test -n "$DEPLOY_PATH" || { echo "::error::Missing DEPLOY_PATH secret"; exit 1; }
+          test "$DEPLOY_HOST" != "DEPLOY_HOST" || { echo "::error::DEPLOY_HOST must be the Uniweb SSH host, not the secret name"; exit 1; }
+          test "$DEPLOY_HOST" != "deploy_host" || { echo "::error::DEPLOY_HOST must be the Uniweb SSH host, not a placeholder"; exit 1; }
+          test "$DEPLOY_USER" != "DEPLOY_USER" || { echo "::error::DEPLOY_USER must be the Uniweb SSH username, not the secret name"; exit 1; }
+          test "$DEPLOY_USER" != "deploy_user" || { echo "::error::DEPLOY_USER must be the Uniweb SSH username, not a placeholder"; exit 1; }
+          test "$DEPLOY_PATH" != "DEPLOY_PATH" || { echo "::error::DEPLOY_PATH must be the Uniweb webroot path, not the secret name"; exit 1; }
+          test "$DEPLOY_PATH" != "deploy_path" || { echo "::error::DEPLOY_PATH must be the Uniweb webroot path, not a placeholder"; exit 1; }
+          test "$DEPLOY_PATH" != "/" || { echo "::error::DEPLOY_PATH must not be /"; exit 1; }
+          test "$DEPLOY_PATH" != "." || { echo "::error::DEPLOY_PATH must not be ."; exit 1; }
+
       - name: Add known host
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p 22 ssh.cg7zrcp0z.service.one >> ~/.ssh/known_hosts
+          ssh-keyscan -p 22 "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Check deployment target
+        run: |
+          ssh -p 22 "$DEPLOY_USER@$DEPLOY_HOST" "
+            test -d '$DEPLOY_PATH' &&
+            test -w '$DEPLOY_PATH' &&
+            echo 'Deploy target is writable: $DEPLOY_PATH'
+          "
 
       - name: Deploy to live webroot
         run: |
@@ -30,4 +56,4 @@ jobs:
             --exclude ".github" \
             --exclude "README.md" \
             -e "ssh -p 22" \
-            ./ cg7zrcp0z_h5343026@ssh.cg7zrcp0z.service.one:/run/webroots/by-route/sandernilsen.no_/
+            ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"

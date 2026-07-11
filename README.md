@@ -59,8 +59,13 @@ No build step is required.
 - Images: Place preview images in `images/` and reference them from the project objects.
 
 ## Deployment
-- GitHub Pages: Push to your `main`/`master` branch and configure the repository’s Pages settings to serve from the root.
-- Netlify/Vercel: Drag‑and‑drop the folder or connect the repo; no build command needed.
+- Uniweb: Push to `main` to deploy with GitHub Actions over SSH/rsync.
+- Required GitHub repository secrets:
+  - `SSH_PRIVATE_KEY` — private key matching a public key on the Uniweb SSH account.
+  - `DEPLOY_HOST` — SSH host from Uniweb connection details.
+  - `DEPLOY_USER` — SSH/SFTP username from Uniweb connection details.
+  - `DEPLOY_PATH` — writable webroot directory for the connected domain.
+- No build command is needed; the static files are synced directly.
 
 ## Accessibility Notes
 - Uses semantic landmarks and ARIA attributes for navigation and controls.
