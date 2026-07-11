@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
 
     steps:
       - name: Checkout code
@@ -18,10 +21,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Check required secrets
+        run: |
+          test -n "$FTP_USERNAME" || { echo "::error::Missing FTP_USERNAME secret"; exit 1; }
+          test -n "$FTP_SERVER" || { echo "::error::Missing FTP_SERVER secret"; exit 1; }
+
       - name: Add known host
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p 22 ssh.cg7zrcp0z.service.one >> ~/.ssh/known_hosts
+          ssh-keyscan -p 22 "$FTP_SERVER" >> ~/.ssh/known_hosts
 
       - name: Deploy to live webroot
         run: |
@@ -30,7 +38,7 @@ jobs:
             --exclude ".github" \
             --exclude "README.md" \
             -e "ssh -p 22" \
-            ./ cg7zrcp0z_h5357394@ssh.cg7zrcp0z.service.one:/run/webroots/by-route/sandernilsen.no_/
+            ./ "$FTP_USERNAME@$FTP_SERVER:/run/webroots/by-route/sandernilsen.no_/"
 
       - name: Purge Uniweb cache
-        run: ssh -p 22 cg7zrcp0z_h5357394@ssh.cg7zrcp0z.service.one cache-purge
+        run: ssh -p 22 "$FTP_USERNAME@$FTP_SERVER" cache-purge
