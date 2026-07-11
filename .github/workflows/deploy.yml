@@ -46,3 +46,4 @@ jobs:
 
       - name: Purge Uniweb cache
         run: ssh -p 22 "$FTP_USERNAME@$FTP_SERVER" cache-purge
+ 
