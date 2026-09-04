@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import ProjectCard from '../components/ProjectCard.jsx';
-import { projectFilters } from '../data/projectTypes.js';
+import { projectFilters, projectTypeLabels } from '../data/projectTypes.js';
 import { useReveal } from '../hooks/useReveal.js';
 import { getPublicProjects } from '../services/api.js';
 
@@ -33,8 +33,12 @@ export default function Projects({ onOpenProject }) {
 
   const visibleProjects = useMemo(
     () => (filter === 'all' ? projects : projects.filter((project) => project.type === filter)),
-    [filter],
+    [filter, projects],
   );
+
+  const emptyMessage = filter === 'all'
+    ? 'No projects added yet.'
+    : `No ${projectTypeLabels[filter]?.toLowerCase() || filter} projects added yet.`;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -91,7 +95,7 @@ export default function Projects({ onOpenProject }) {
           />
         ))}
         {!loading && !error && visibleProjects.length === 0 && (
-          <p className="project-empty">No personal projects added yet.</p>
+          <p className="project-empty">{emptyMessage}</p>
         )}
       </div>
     </section>
