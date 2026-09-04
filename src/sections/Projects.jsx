@@ -1,13 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import ProjectCard from '../components/ProjectCard.jsx';
-import { projects } from '../data/projects.js';
+import { projectFilters } from '../data/projectTypes.js';
 import { useReveal } from '../hooks/useReveal.js';
-
-const filters = [
-  ['all', 'All'],
-  ['noroff', 'Noroff'],
-  ['personal', 'Personal'],
-];
+import { getPublicProjects } from '../services/api.js';
 
 function ProjectSkeleton() {
   return (
@@ -31,6 +26,9 @@ function ProjectSkeleton() {
 export default function Projects({ onOpenProject }) {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState([]);
+  const [error, setError] = useState('');
+  const [requestVersion, setRequestVersion] = useState(0);
   const sectionRef = useRef(null);
 
   const visibleProjects = useMemo(
@@ -39,19 +37,23 @@ export default function Projects({ onOpenProject }) {
   );
 
   useEffect(() => {
-    let cancelled = false;
-    const loaders = projects.map((project) => new Promise((resolve) => {
-      const image = new Image();
-      image.onload = resolve;
-      image.onerror = resolve;
-      image.src = project.img;
-    }));
+    const controller = new AbortController();
+    setLoading(true);
+    setError('');
 
-    Promise.all(loaders).then(() => {
-      if (!cancelled) setLoading(false);
-    });
-    return () => { cancelled = true; };
-  }, []);
+    getPublicProjects(controller.signal)
+      .then(({ projects: nextProjects }) => {
+        setProjects(nextProjects);
+        setLoading(false);
+      })
+      .catch((requestError) => {
+        if (requestError.name === 'AbortError') return;
+        setError(requestError.message);
+        setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [requestVersion]);
 
   useReveal(sectionRef, `${loading}-${filter}`);
 
@@ -59,7 +61,7 @@ export default function Projects({ onOpenProject }) {
     <section id="projects" className="container" aria-labelledby="projects-title" ref={sectionRef}>
       <h2 id="projects-title" className="reveal">Projects</h2>
       <div className="filters reveal" style={{ '--reveal-delay': '80ms' }} role="toolbar" aria-label="Filter projects">
-        {filters.map(([value, label]) => (
+        {projectFilters.map(([value, label]) => (
           <button
             className="chip"
             type="button"
@@ -73,14 +75,22 @@ export default function Projects({ onOpenProject }) {
       </div>
       <div className="grid" aria-live="polite" aria-busy={loading || undefined}>
         {loading && Array.from({ length: 6 }, (_, index) => <ProjectSkeleton key={index} />)}
-        {!loading && visibleProjects.map((project) => (
+        {!loading && error && (
+          <div className="project-empty project-error" role="alert">
+            <p>Projects could not be loaded. {error}</p>
+            <button className="btn btn-sm" type="button" onClick={() => setRequestVersion((value) => value + 1)}>
+              Try again
+            </button>
+          </div>
+        )}
+        {!loading && !error && visibleProjects.map((project) => (
           <ProjectCard
             project={project}
             onOpen={(trigger) => onOpenProject(project, trigger)}
-            key={project.title}
+            key={project.id}
           />
         ))}
-        {!loading && visibleProjects.length === 0 && (
+        {!loading && !error && visibleProjects.length === 0 && (
           <p className="project-empty">No personal projects added yet.</p>
         )}
       </div>

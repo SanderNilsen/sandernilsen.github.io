@@ -50,8 +50,15 @@ jobs:
       - name: Deploy to live webroot
         run: |
           rsync -avz --delete \
+            --exclude "api/" \
+            --exclude "uploads/" \
             -e "ssh -p 22" \
             ./dist/ "$FTP_USERNAME@$FTP_SERVER:$FTP_ROUTE"
+
+          API_ROUTE="${FTP_ROUTE%/}/api/"
+          rsync -avz --delete \
+            -e "ssh -p 22" \
+            ./server/api/ "$FTP_USERNAME@$FTP_SERVER:$API_ROUTE"
 
       - name: Purge Uniweb cache
         run: ssh -p 22 "$FTP_USERNAME@$FTP_SERVER" cache-purge

@@ -563,6 +563,10 @@ p.lead {
   background: color-mix(in srgb, var(--bg-elev) 65%, transparent);
 }
 
+.project-error p {
+  margin: 0 0 12px;
+}
+
 .github-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);

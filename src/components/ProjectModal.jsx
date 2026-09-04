@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ExternalButton from './ExternalButton.jsx';
-import { projectTypeLabels } from '../data/projects.js';
+import { projectTypeLabels } from '../data/projectTypes.js';
 
 export default function ProjectModal({ project, trigger, onClose }) {
   const panelRef = useRef(null);
