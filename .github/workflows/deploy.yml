@@ -57,6 +57,7 @@ jobs:
 
           API_ROUTE="${FTP_ROUTE%/}/api/"
           rsync -avz --delete \
+            --exclude "private/portfolio-config.php" \
             -e "ssh -p 22" \
             ./server/api/ "$FTP_USERNAME@$FTP_SERVER:$API_ROUTE"
 

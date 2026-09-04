@@ -9,9 +9,22 @@ use PDO;
 function createApp(): array
 {
     $configuredPath = getenv('PORTFOLIO_CONFIG');
-    $configPath = $configuredPath ?: dirname(__DIR__, 3) . '/portfolio-config.php';
+    $configCandidates = $configuredPath
+        ? [$configuredPath]
+        : [
+            dirname(__DIR__, 3) . '/portfolio-config.php',
+            dirname(__DIR__) . '/private/portfolio-config.php',
+        ];
 
-    if (!is_file($configPath)) {
+    $configPath = null;
+    foreach ($configCandidates as $candidate) {
+        if (is_file($candidate)) {
+            $configPath = $candidate;
+            break;
+        }
+    }
+
+    if ($configPath === null) {
         throw new \RuntimeException('Portfolio API configuration was not found.');
     }
 
