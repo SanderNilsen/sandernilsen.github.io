@@ -1,78 +1,77 @@
 # Sander Nilsen — Portfolio
 
-Personal portfolio showcasing selected projects from my Frontend Development studies at Noroff. Built with semantic HTML, modern CSS, and vanilla JavaScript with a focus on accessibility, responsive layouts, and smooth interactions.
+Personal portfolio showcasing selected frontend development projects, GitHub activity, and experience. The site is built with React and Vite, with custom CSS and no UI framework.
 
-Live site: https://sandernilsen.github.io/
-
-## Badges
-![Website: Live](https://img.shields.io/badge/website-live-brightgreen?style=for-the-badge)
-![Made with: HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge)
-![Made with: CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge)
-![Made with: JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)
-![a11y: Friendly](https://img.shields.io/badge/a11y-friendly-1abc9c?style=for-the-badge)
+Live site: https://sandernilsen.no/
 
 ## Features
-- Accessible layout and semantics: Landmark regions, ARIA labels, and reduced‑motion support.
-- Project gallery with filters: Renders from a single data array, filterable by type (All/Web/App/Design).
-- Smooth UX details: Smooth scrolling, active nav highlight, keyboard focus styles, and dynamic current year.
-- Animated CV elements: Skill bars animate to their levels; work experience timeline expands/collapses.
-- Responsive design: Scales from mobile to desktop with a clean, modern aesthetic.
 
-## Tech Stack
-- HTML5, CSS3 (custom properties, responsive grid)
-- Vanilla JavaScript (no frameworks or build step)
-- Font Awesome (icons via CDN)
+- Responsive single-page layout with sticky navigation and a mobile menu
+- Persistent light and dark themes that default to the system preference
+- Filterable project gallery with keyboard-accessible detail dialogs
+- GitHub statistics with theme-aware images, retry controls, and fallbacks
+- Expandable work-experience timeline
+- Scroll reveal effects with reduced-motion support
+- Semantic landmarks, visible focus states, and accessible control labels
 
-## Project Structure
-- `index.html` — Main page markup, sections for Hero, Projects, CV, and Footer.
-- `css/styles.css` — Styles, theming (CSS variables), components, responsive rules.
-- `main.js` — Interactivity: render projects, filtering, animations, nav behavior.
-- `images/` — Thumbnails and profile image used in the UI.
-- `site.webmanifest` and icons — Favicons and PWA manifest.
+## Tech stack
 
-## Project Previews
+- React
+- Vite
+- Custom CSS
+- Font Awesome icons loaded from its existing CDN stylesheet
 
-Below are thumbnails of some featured projects linked from the portfolio:
+## Project structure
 
-<p>
-  <img src="images/RainyDays-Website-Design.png" alt="RainyDays project screenshot" width="360" />
-  <img src="images/CMS-Website-Design.png" alt="Community Science Museum project screenshot" width="360" />
-</p>
+```text
+public/
+  images/             Static portfolio images and icons
+  site.webmanifest
+src/
+  components/         Reusable navigation, cards, modal, stats, and footer
+  data/               Project content
+  hooks/              Shared scroll-reveal behavior
+  sections/           Hero, Projects, GitHub, and CV sections
+  styles/             Existing visual system and responsive styles
+  App.jsx
+  main.jsx
+index.html             Metadata, analytics, and React entry point
+vite.config.js
+```
 
-<p>
-  <img src="images/Websitedesign.png" alt="LofotenPeaks project screenshot" width="360" />
-  <img src="images/websitedesign-linkup.png" alt="LinkUp project screenshot" width="360" />
-  <img src="images/Website-Design-AH.png" alt="Auction House project screenshot" width="360" />
-</p>
+## Local development
 
-## Getting Started
-1) Clone or download the repository.
-2) Open `index.html` directly in a browser, or serve locally for a better experience:
-   - VS Code: use the “Live Server” extension.
+```bash
+npm install
+npm run dev
+```
 
-No build step is required.
+Create a production build with:
 
-## Customization
-- Edit projects: Update the `projects` array in `main.js` to add, remove, or modify items (title, type, tags, image, description, links). Types should match the filter chips (e.g., `web`, `app`, `design`).
-- Update text content: Modify headings, intro, and quick facts in `index.html`.
-- Adjust skills: In the CV section of `index.html`, change each skill’s label, percentage text, and the `--level` inline style (and `aria-valuenow`) to match your level.
-- Images: Place preview images in `images/` and reference them from the project objects.
+```bash
+npm run build
+```
+
+Preview the generated `dist/` directory with:
+
+```bash
+npm run preview
+```
+
+## Updating content
+
+- Edit project cards in `src/data/projects.js`.
+- Edit page copy in the matching component under `src/sections/`.
+- Add static images to `public/images/` and reference them with `/images/filename.ext`.
+- Adjust visual tokens, components, and breakpoints in `src/styles/styles.css`.
 
 ## Deployment
-- Uniweb: Push to `main` to deploy with GitHub Actions over SSH/rsync.
-- Required GitHub repository secrets:
-  - `SSH_PRIVATE_KEY` — private key matching a public key on the Uniweb SSH account.
-  - `DEPLOY_HOST` — SSH host from Uniweb connection details.
-  - `DEPLOY_USER` — SSH/SFTP username from Uniweb connection details.
-  - `DEPLOY_PATH` — writable webroot directory for the connected domain.
-- No build command is needed; the static files are synced directly.
 
-## Accessibility Notes
-- Uses semantic landmarks and ARIA attributes for navigation and controls.
-- Respects `prefers-reduced-motion` and provides obvious focus states for keyboard navigation.
-- Color contrast and button states are designed for clarity in both dark and light schemes.
+Pushes to `main` run the GitHub Actions workflow in `.github/workflows/deploy.yml`. It installs dependencies, builds the Vite app, and deploys only the generated `dist/` directory over SSH/rsync.
 
-## Contact
-- LinkedIn: https://www.linkedin.com/in/sandernilsen/
-- GitHub: https://github.com/SanderNilsen
- 
+Required repository secrets:
+
+- `SSH_PRIVATE_KEY`
+- `FTP_SERVER`
+- `FTP_USERNAME`
+- `FTP_ROUTE`

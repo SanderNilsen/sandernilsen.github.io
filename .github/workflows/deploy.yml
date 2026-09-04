@@ -17,6 +17,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build portfolio
+        run: npm run build
+
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -38,12 +50,8 @@ jobs:
       - name: Deploy to live webroot
         run: |
           rsync -avz --delete \
-            --exclude ".git*" \
-            --exclude ".github" \
-            --exclude "README.md" \
             -e "ssh -p 22" \
-            ./ "$FTP_USERNAME@$FTP_SERVER:$FTP_ROUTE"
+            ./dist/ "$FTP_USERNAME@$FTP_SERVER:$FTP_ROUTE"
 
       - name: Purge Uniweb cache
         run: ssh -p 22 "$FTP_USERNAME@$FTP_SERVER" cache-purge
- 

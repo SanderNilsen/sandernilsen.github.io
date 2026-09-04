@@ -1,23 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sander Nilsen is a frontend developer building clear, responsive, and accessible web experiences."
+    />
+    <meta property="og:title" content="Sander Nilsen | Portfolio" />
+    <meta
+      property="og:description"
+      content="Selected frontend development projects, GitHub activity, and experience from Sander Nilsen."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sandernilsen.no/" />
+    <link rel="canonical" href="https://sandernilsen.no/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0b1020" />
     <title>Sander Nilsen | Portfolio</title>
-    <!-- Google tag (gtag.js) -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-412QP487TJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
-        dataLayer.push(arguments);
+        window.dataLayer.push(arguments);
       }
-      gtag("js", new Date());
-
-      gtag("config", "G-412QP487TJ");
+      gtag('js', new Date());
+      gtag('config', 'G-412QP487TJ');
     </script>
     <link
       rel="stylesheet"
@@ -25,392 +37,22 @@
     />
     <script>
       (function () {
-        const storageKey = "portfolio-theme";
-        const root = document.documentElement;
-        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-        let theme = prefersLight ? "light" : "dark";
+        var storageKey = 'portfolio-theme';
+        var root = document.documentElement;
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = prefersLight ? 'light' : 'dark';
 
         try {
-          const stored = localStorage.getItem(storageKey);
-          if (stored === "light" || stored === "dark") {
-            theme = stored;
-          }
+          var stored = localStorage.getItem(storageKey);
+          if (stored === 'light' || stored === 'dark') theme = stored;
         } catch (_) {}
 
-        root.setAttribute("data-theme", theme);
+        root.setAttribute('data-theme', theme);
       })();
     </script>
-    <link rel="stylesheet" href="css/styles.css" />
-    <script src="main.js?v=2" defer></script>  
   </head>
   <body>
-    <header class="site-header">
-      <div class="container nav" role="navigation" aria-label="Main menu">
-        <a class="brand" href="#hero">Sander Nilsen</a>
-
-        <nav id="primary-nav" class="nav-links" aria-label="Primary">
-          <a class="nav-link" href="#projects">Projects</a>
-          <a class="nav-link" href="#github">GitHub</a>
-          <a class="nav-link" href="#cv">CV</a>
-        </nav>
-
-        <div class="nav-actions">
-          <button
-            class="menu-toggle"
-            type="button"
-            id="menu-toggle"
-            aria-expanded="false"
-            aria-controls="primary-nav"
-            aria-label="Open navigation"
-          >
-            <span class="menu-toggle__icon" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-
-          <button
-            class="theme-toggle"
-            type="button"
-            id="theme-toggle"
-            aria-pressed="false"
-            aria-label="Toggle dark mode"
-          >
-            <span class="theme-toggle__icon" aria-hidden="true">
-              <i class="fa-solid fa-moon theme-toggle__icon-moon"></i>
-              <i class="fa-solid fa-sun theme-toggle__icon-sun"></i>
-            </span>
-            <span class="theme-toggle__label">Dark</span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <!-- HERO -->
-      <section id="hero" class="container hero" aria-label="Intro">
-        <div>
-          <h1>Turning ideas into seamless web experiences</h1>
-          <p class="lead">
-            I’m Sander Nilsen, a frontend developer focused on building clear, responsive
-            interfaces with solid structure and thoughtful user experience.
-          </p>
-          <p>
-            <a class="btn" href="#projects">Projects</a>
-            <a class="btn" href="#cv" style="margin-left: 0.5rem">CV</a>
-          </p>
-        </div>
-        <div class="card quickfacts">
-          <img src="images/profile-img.png" alt="Sander Nilsen" class="quickfacts-img" />
-          <h3 class="quickfacts-title">Quick Facts</h3>
-          <ul class="quickfacts-list">
-            <li>
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Trondheim, Norway</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-graduation-cap"></i>
-              <span>Frontend Development Student · Noroff</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>Focus: Accessibility · UX · Performance</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-handshake-angle"></i>
-              <span>Open to freelance & collaboration</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="projects" class="container" aria-labelledby="projects-title">
-        <h2 id="projects-title">Projects</h2>
-        <div class="filters" role="toolbar" aria-label="Filter projects">
-          <button class="chip" aria-pressed="true" data-filter="all">All</button>
-          <button class="chip" aria-pressed="false" data-filter="noroff">Noroff</button>
-          <button class="chip" aria-pressed="false" data-filter="personal">Personal</button>
-        </div>
-        <div class="grid" id="project-grid" aria-live="polite"></div>
-      </section>
-
-      <!-- GITHUB -->
-      <section id="github" class="container" aria-labelledby="github-title">
-        <h2 id="github-title">GitHub</h2>
-        <p class="section-lead">
-          A snapshot of what I am building, how often I contribute, and where you can
-          dive deeper into my code.
-        </p>
-        <div class="github-grid">
-          <article class="card github-card">
-            <h3>Contribution Activity</h3>
-            <p class="github-card__meta">Tracking my commits and pull requests across the past year.</p>
-            <img
-              src="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=38BDF8&ring=A78BFA&currStreakLabel=38BDF8&sideNums=E6E6F0&currStreakNum=E6E6F0&sideLabels=A7B0C5"
-              data-theme-src-dark="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=38BDF8&ring=A78BFA&currStreakLabel=38BDF8&sideNums=E6E6F0&currStreakNum=E6E6F0&sideLabels=A7B0C5"
-              data-theme-src-light="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=2563EB&ring=9333EA&currStreakLabel=2563EB&sideNums=0B1020&currStreakNum=0B1020&sideLabels=475569"
-              data-github-stat="streak"
-              data-github-label="Contribution streak"
-              data-github-link="https://github.com/SanderNilsen"
-              alt="GitHub contribution streak stats for Sander Nilsen"
-              loading="lazy"
-              decoding="async"
-              width="720"
-              height="320"
-            />
-          </article>
-
-          <article class="card github-card">
-            <h3>Languages & Featured Repos</h3>
-            <p class="github-card__meta">Quick view of the tech I use most and current focus projects.</p>
-            <img
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=SanderNilsen&layout=compact&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0"
-              data-theme-src-dark="https://github-readme-stats.vercel.app/api/top-langs/?username=SanderNilsen&layout=compact&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0"
-              data-theme-src-light="https://github-readme-stats.vercel.app/api/top-langs/?username=SanderNilsen&layout=compact&hide_border=true&bg_color=00000000&title_color=2563EB&text_color=0B1020"
-              data-github-stat="top-langs"
-              data-github-label="Top languages chart"
-              data-github-link="https://github.com/SanderNilsen?tab=repositories"
-              alt="Top languages used across Sander Nilsen's public repositories"
-              loading="lazy"
-              decoding="async"
-              width="720"
-              height="320"
-            />
-            <div class="github-pins" role="group" aria-label="Featured repositories">
-              <img
-                src="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-                data-theme-src-dark="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-                data-theme-src-light="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=2563EB&text_color=0B1020&icon_color=9333EA"
-                data-github-stat="pin-rainydays"
-                data-github-label="RainyDays repository card"
-                data-github-link="https://github.com/SanderNilsen/RainyDays"
-                alt="Pinned repository: RainyDays"
-                loading="lazy"
-                decoding="async"
-                width="450"
-                height="180"
-              />
-              <img
-                src="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-                data-theme-src-dark="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-                data-theme-src-light="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=2563EB&text_color=0B1020&icon_color=9333EA"
-                data-github-stat="pin-auction"
-                data-github-label="Auction House repository card"
-                data-github-link="https://github.com/SanderNilsen/Semester-Project-2-AuctionHouse"
-                alt="Pinned repository: Semester-Project-2-AuctionHouse"
-                loading="lazy"
-                decoding="async"
-                width="450"
-                height="180"
-              />
-            </div>
-          </article>
-
-          <article class="card github-card github-card--wide">
-            <h3>Activity Graph</h3>
-            <p class="github-card__meta">Visual timeline of daily commits across my active repositories.</p>
-            <img
-              src="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=E6E6F0&line=38BDF870&point=A78BFA&area=true&hide_border=true&radius=12"
-              data-theme-src-dark="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=E6E6F0&line=38BDF870&point=A78BFA&area=true&hide_border=true&radius=12"
-              data-theme-src-light="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=0B1020&line=2563EB&point=9333EA&area=true&hide_border=true&radius=12"
-              data-github-stat="activity"
-              data-github-label="Contribution activity graph"
-              data-github-link="https://github.com/SanderNilsen"
-              alt="GitHub activity graph for Sander Nilsen"
-              loading="lazy"
-              decoding="async"
-              width="720"
-              height="320"
-            />
-          </article>
-
-        </div>
-
-        <div class="github-actions">
-          <a
-            class="btn"
-            href="https://github.com/SanderNilsen"
-            target="_blank"
-            rel="noopener"
-          >
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-            <span>Visit my GitHub</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- CV -->
-      <section id="cv" class="container" aria-labelledby="cv-title">
-        <h2 id="cv-title">CV</h2>
-        <div class="cv">
-          <aside class="card">
-            <h3>Frontend focus</h3>
-            <ul class="focus-list">
-              <li>
-                <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
-                <div>
-                  <span class="focus-title">Accessible interfaces</span>
-                  <span class="focus-text">Semantic HTML, keyboard support, and clear user flows.</span>
-                </div>
-              </li>
-              <li>
-                <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
-                <div>
-                  <span class="focus-title">Responsive UI</span>
-                  <span class="focus-text">Layouts that work across mobile, tablet, and desktop.</span>
-                </div>
-              </li>
-              <li>
-                <i class="fa-solid fa-code" aria-hidden="true"></i>
-                <div>
-                  <span class="focus-title">API-driven apps</span>
-                  <span class="focus-text">React, routing, forms, auth, and external API integrations.</span>
-                </div>
-              </li>
-              <li>
-                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
-                <div>
-                  <span class="focus-title">Performance-minded</span>
-                  <span class="focus-text">Fast loading, optimized assets, and maintainable code.</span>
-                </div>
-              </li>
-            </ul>
-          </aside>
-          <div class="card">
-            <h3>Work Experience</h3>
-            <ol class="timeline clamp" id="exp-timeline">
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Shop Assistant</span>
-                  <span class="meta">XXL Sport og Villmark Lade</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Cash register & customer support</li>
-                  <li>Assisted ski & bicycle department</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Service Worker</span>
-                  <span class="meta">Elite Service Partner AS</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Building cleaning & maintenance</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Production Worker</span>
-                  <span class="meta">Berg Seafood AS</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Cod fishing operations</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Shop Assistant</span>
-                  <span class="meta">Rema 1000 Jg Hansen AS</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Cash register & service</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Production Worker</span>
-                  <span class="meta">Lofothval</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Packing & QC</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Salesperson</span>
-                  <span class="meta">Neras Direkte AS</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Telephone sales</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Firefighter</span>
-                  <span class="meta">Norwegian Armed Forces</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Fire response & safety</li>
-                </ul>
-              </li>
-
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Shop Assistant</span>
-                  <span class="meta">Extra Svolvær</span>
-                </div>
-                <ul class="tl-bullets">
-                  <li>Cash register & service</li>
-                </ul>
-              </li>
-            </ol>
-
-            <button class="btn tl-toggle" data-target="#exp-timeline" aria-expanded="false">
-              Show all experience
-            </button>
-
-            <h3>Education</h3>
-            <ol class="timeline">
-              <li class="tl-item">
-                <div class="tl-head">
-                  <span class="role">Frontend Development (Part-time)</span>
-                  <span class="meta">Noroff · 2022–2026</span>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer id="footer" class="site-footer">
-      <div class="container footer-wrap">
-        <div class="footer-brand">
-          <a class="brand" href="#hero">Sander Nilsen</a>
-          <p class="footer-lead">Open to freelance & collaboration.</p>
-        </div>
-
-        <div class="footer-actions">
-          <a
-            class="btn btn--icon"
-            href="https://www.linkedin.com/in/sandernilsen/"
-            target="_blank"
-            rel="noopener"
-            aria-label="LinkedIn"
-          >
-            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-          </a>
-          <a
-            class="btn btn--icon"
-            href="https://github.com/SanderNilsen"
-            target="_blank"
-            rel="noopener"
-            aria-label="GitHub"
-          >
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-          </a>
-        </div>
-
-        <div class="footer-meta">© <span id="year"></span> Sander Nilsen</div>
-      </div>
-    </footer>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -97,6 +97,11 @@ a:hover {
   text-decoration: none;
 }
 
+a:focus-visible {
+  outline: var(--ring);
+  outline-offset: 3px;
+}
+
 /* Layout */
 .container {
   width: min(100% - 32px, var(--maxw));
@@ -132,19 +137,6 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-
-.brand-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 9999px;
-  font-size: 0.7rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--txt) 80%, var(--bg));
-  background: color-mix(in srgb, var(--brand) 18%, var(--bg-elev));
-  border: 1px solid color-mix(in srgb, var(--brand) 40%, transparent);
 }
 
 /* Desktop nav */
@@ -193,6 +185,10 @@ a:hover {
 .nav-link:hover {
   border-color: color-mix(in srgb, var(--brand) 35%, var(--txt));
   background: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
+}
+
+.nav-link.is-active::after {
+  transform: scaleX(1);
 }
 
 .theme-toggle {
@@ -380,6 +376,10 @@ p.lead {
 .hero .card {
   /* Use base card styles; only adjust spacing here */
   padding: 24px;
+}
+
+.hero__cv-link {
+  margin-left: .5rem;
 }
 
 .hero img {
@@ -672,13 +672,13 @@ p.lead {
 
 .sk-img { height: 180px; border-radius: calc(var(--radius) - 6px); }
 .sk-line { height: 14px; }
-.sk-line.sm { width: 40%; }
 .sk-line.md { width: 65%; }
 .sk-line.lg { width: 85%; }
 .sk-tags { display: flex; gap: 6px; margin-top: auto; flex-wrap: wrap; }
 .sk-tag { width: 64px; height: 18px; border-radius: 9999px; }
 .sk-btns { display: flex; gap: 10px; flex-wrap: wrap; }
 .sk-btn { height: 32px; width: 120px; border-radius: 10px; }
+.project-skeleton__secondary-button { width: 110px; }
 
 @media (max-width: 900px) {
   .project.skeleton { grid-column: span 6; }
@@ -716,9 +716,24 @@ p.lead {
   cursor: pointer;
 }
 
-.project:focus-visible {
+.project-card__open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.project-card__open:focus-visible {
   outline: var(--ring);
   outline-offset: 3px;
+}
+
+.project-links {
+  position: relative;
+  z-index: 2;
 }
 
 .project figure {
@@ -758,13 +773,6 @@ p.lead {
   border-radius: 7px;
   color: var(--muted);
   background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
-}
-
-.tag::before {
-  width: 5px;
-  height: 5px;
-  background: color-mix(in srgb, var(--brand) 65%, var(--muted));
-  box-shadow: none;
 }
 
 .project-modal-open {
@@ -921,88 +929,6 @@ p.lead {
 
   .project-modal__actions .btn {
     flex: 1 1 100%;
-  }
-}
-
-/* Skills list layout */
-.skills {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 14px;
-}
-
-.skill {
-  display: grid;
-  grid-template-columns: 1fr auto; /* name | % */
-  gap: 10px;
-  align-items: center;
-}
-
-.skill-name {
-  font-weight: 600;
-}
-
-.skill-val {
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-}
-
-/* Bar track */
-.skill-bar {
-  grid-column: 1 / -1;        /* full width under name + % */
-  height: 10px;
-  border-radius: 9999px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--bg) 80%, #000 20%), color-mix(in srgb, var(--bg) 88%, #000 12%));
-  box-shadow: 0 1px 0 rgba(255,255,255,.04) inset;
-}
-
-/* Bar fill (gradient + subtle glow) — consolidated below */
-
-/* When the list is ready, expand to the set level */
-.skills.animate .skill-fill { width: var(--level, 0%); }
-
-/* Bar fill (with gradient + sheen) */
-.skill-fill {
-  display: block;
-  height: 100%;
-  width: 0%; /* start collapsed */
-  background: linear-gradient(90deg, var(--brand), var(--brand-2));
-  box-shadow: 0 0 16px rgba(56,189,248,.28);
-  border-radius: inherit;
-  transition: width .8s cubic-bezier(.22,.61,.36,1);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Sheen pseudo-element */
-.skill-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.5) 50%,
-    transparent 70%
-  );
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-/* Trigger sheen on hover */
-.skill:hover .skill-fill::after {
-  opacity: 1;
-  animation: sheen 1.5s ease forwards;
-}
-
-/* Sheen keyframes */
-@keyframes sheen {
-  to {
-    transform: translateX(120%);
   }
 }
 
