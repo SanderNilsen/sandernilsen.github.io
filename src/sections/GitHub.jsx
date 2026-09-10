@@ -17,7 +17,7 @@ export default function GitHub({ theme }) {
         A snapshot of what I am building, how often I contribute, and where you can
         dive deeper into my code.
       </p>
-      <div className="github-grid reveal" style={{ '--reveal-delay': '160ms' }}>
+      <div className="github-grid">
         <article className="card github-card reveal">
           <h3>Contribution Activity</h3>
           <p className="github-card__meta">Tracking my commits and pull requests across the past year.</p>

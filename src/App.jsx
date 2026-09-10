@@ -48,7 +48,8 @@ export default function App() {
       const target = document.getElementById(link.hash.slice(1));
       if (!target) return;
       event.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
     };
     document.addEventListener('click', handleClick);
     return () => {

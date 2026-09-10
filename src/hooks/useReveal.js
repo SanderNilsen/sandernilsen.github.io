@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export function useReveal(containerRef, dependency = null) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return undefined;
 
@@ -17,24 +17,56 @@ export function useReveal(containerRef, dependency = null) {
       }
     });
 
-    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (!('IntersectionObserver' in window) || reducedMotion) {
+    const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!('IntersectionObserver' in window) || motionPreference?.matches) {
       elements.forEach((element) => element.classList.add('is-visible'));
       return undefined;
     }
+
+    const finishReveal = (element) => {
+      element.classList.add('is-visible');
+      element.classList.remove('reveal-ready');
+      observer.unobserve(element);
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          window.requestAnimationFrame(() => entry.target.classList.add('is-visible'));
+          entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.2, rootMargin: '0px 0px -20%' },
+      // Trigger when the leading edge enters, including cards taller than the viewport.
+      { threshold: 0, rootMargin: '0px 0px -32px 0px' },
     );
 
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    const handleAnimationEnd = (event) => {
+      if (event.animationName === 'reveal-in') finishReveal(event.target);
+    };
+    const handleFocus = (event) => {
+      elements.forEach((element) => {
+        if (element.contains(event.target)) finishReveal(element);
+      });
+    };
+    const handleMotionChange = (event) => {
+      if (event.matches) elements.forEach(finishReveal);
+    };
+
+    elements.forEach((element) => {
+      element.classList.add('reveal-ready');
+      observer.observe(element);
+    });
+    container.addEventListener('animationend', handleAnimationEnd);
+    container.addEventListener('focusin', handleFocus);
+    motionPreference?.addEventListener?.('change', handleMotionChange);
+
+    return () => {
+      observer.disconnect();
+      elements.forEach((element) => element.classList.remove('reveal-ready'));
+      container.removeEventListener('animationend', handleAnimationEnd);
+      container.removeEventListener('focusin', handleFocus);
+      motionPreference?.removeEventListener?.('change', handleMotionChange);
+    };
   }, [containerRef, dependency]);
 }

@@ -68,23 +68,37 @@ body {
   color: var(--txt);
 }
 
-.reveal {
+/* Content stays visible until the scroll observer is ready. */
+.reveal.reveal-ready {
   opacity: 0;
-  transform: translate3d(0, 24px, 0);
-  animation: reveal-in .65s cubic-bezier(.22,.61,.36,1) forwards;
+  animation: reveal-in .75s cubic-bezier(.22,.61,.36,1) both;
   animation-delay: var(--reveal-delay, 0s);
   animation-play-state: paused;
-  will-change: opacity, transform;
+  will-change: opacity, translate;
 }
 
-.reveal.is-visible {
+.reveal.reveal-ready.is-visible {
   animation-play-state: running;
 }
 
+.reveal[data-reveal="left"] {
+  --reveal-x: -16px;
+  --reveal-y: 0px;
+}
+
+.reveal[data-reveal="right"] {
+  --reveal-x: 16px;
+  --reveal-y: 0px;
+}
+
 @keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: var(--reveal-x, 0px) var(--reveal-y, 24px);
+  }
   to {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
   }
 }
 
@@ -338,6 +352,7 @@ main {
 
 section {
   padding: 48px 0;
+  scroll-margin-top: 88px;
 }
 
 h1, h2 {
@@ -380,6 +395,61 @@ p.lead {
 
 .hero__cv-link {
   margin-left: .5rem;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.current-studies {
+  display: grid;
+  gap: 5px;
+  margin: 26px 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--brand);
+  border-radius: 0 12px 12px 0;
+  background: color-mix(in srgb, var(--brand) 7%, var(--bg-elev));
+  color: var(--txt);
+  transition: background .2s ease;
+}
+
+.current-studies:hover {
+  background: color-mix(in srgb, var(--brand) 12%, var(--bg-elev));
+}
+
+.current-studies:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.current-studies__label {
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.current-studies__title {
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.current-studies__detail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.current-studies__detail i {
+  margin-left: auto;
+  color: var(--brand);
 }
 
 .hero img {
@@ -936,53 +1006,6 @@ p.lead {
   }
 }
 
-.focus-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 12px;
-}
-
-.focus-list li {
-  display: grid;
-  grid-template-columns: 38px 1fr;
-  gap: 12px;
-  align-items: start;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--muted) 18%, transparent);
-  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
-}
-
-.focus-list i {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  color: var(--brand);
-  background: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
-}
-
-.focus-title,
-.focus-text {
-  display: block;
-}
-
-.focus-title {
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.focus-text {
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 0.93rem;
-  line-height: 1.45;
-}
-
 /* Timeline container */
 .timeline {
   list-style: none;
@@ -1023,64 +1046,163 @@ p.lead {
   box-shadow: 0 0 10px rgba(56,189,248,.35);
 }
 
-/* Header row: role + meta (dates/company) */
+/* Role and employer stay together; dates wrap below on narrow screens. */
 .tl-head {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 12px;
   align-items: baseline;
+  justify-content: space-between;
   margin-left: 20px;
-
 }
 
 .tl-head .role {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .tl-head .meta {
+  margin: 2px 0 0;
   color: var(--muted);
   font-size: .95rem;
 }
 
-/* Bullets: keep to 1–2 short lines each for neatness */
+.tl-dates {
+  margin: 0;
+  color: var(--muted);
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
 .tl-bullets {
   margin: 6px 0 0 18px;
+  padding-left: 20px;
   color: var(--muted);
   display: grid;
   gap: 4px;
 }
 
-.tl-bullets li {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;       /* clamp long bullets */
-  line-clamp: 2;               /* standard property for compatibility */
-}
-
-/* Clamp the whole list initially (avoid tall card) */
-.timeline.clamp {
-  max-height: 320px;
-  overflow: hidden;
-  position: relative;
-  mask-image: linear-gradient(to bottom, black 85%, transparent); /* fade out bottom */
-}
-
-/* Toggle button below timeline */
 .tl-toggle {
   margin: 12px 0 0;
   align-self: flex-start;
 }
 
-/* Small screens: give a bit more room before clamping */
-@media (max-width: 600px) {
-  .timeline.clamp { max-height: 380px; }
+.tl-toggle:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.earlier-experience {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--muted) 20%, transparent);
+}
+
+.earlier-experience > h4 {
+  margin: 0 0 12px;
+}
+
+/* Education */
+.education {
+  margin-bottom: 32px;
+}
+
+.education > h3 {
+  margin: 0 0 16px;
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.education-card {
+  padding: clamp(20px, 3vw, 30px);
+  overflow: hidden;
+}
+
+.education-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  transform-origin: left;
+  transition: transform .8s ease .15s;
+}
+
+.education-card.reveal-ready:not(.is-visible)::before {
+  transform: scaleX(0);
+}
+
+.education-card--current {
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--bg-elev));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 8%, var(--bg-elev)), var(--bg-elev));
+}
+
+.education-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.education-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 10%, var(--bg-elev));
+  font-size: 1.15rem;
+}
+
+.education-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  border-radius: 999px;
+  color: var(--txt);
+  background: color-mix(in srgb, var(--brand) 8%, var(--bg-elev));
+  font-size: .75rem;
+  font-weight: 650;
+}
+
+.education-status--completed {
+  border-color: color-mix(in srgb, var(--brand-2) 35%, transparent);
+  background: color-mix(in srgb, var(--brand-2) 8%, var(--bg-elev));
+}
+
+.education-card__school {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.education-card h4 {
+  margin: 0 0 14px;
+  font-size: clamp(20px, 2.2vw, 25px);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.education-card__description {
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
 }
 
 /* CV */
 .cv {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
 }
 
@@ -1090,16 +1212,11 @@ p.lead {
 }
 
 .cv .card:hover {
-  transform: none; /* prevent layout shift between the two columns */
+  transform: none;
 }
 
 .cv h3 {
   margin: 10px 0 10px;
-}
-
-.tl-toggle {
-  margin: 12px 0 0;
-  align-self: flex-start;
 }
 
 /* Contact card */
@@ -1327,16 +1444,17 @@ p.lead {
     grid-template-columns: 1fr;
   }
 
-  .cv {
-    grid-template-columns: 1fr;
-  }
-
   .project {
     grid-column: span 6;
   }
 }
 
 @media (max-width: 600px) {
+  .education-grid { grid-template-columns: 1fr; }
+  .reveal[data-reveal] {
+    --reveal-x: 0px;
+    --reveal-y: 20px;
+  }
   .project { grid-column: span 12; }
   section { padding: 32px 0; }
   .hero { gap: 20px; }
@@ -1345,13 +1463,17 @@ p.lead {
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, *::before, *::after {
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
   }
   .reveal {
     opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+  }
+  .education-card::before {
     transform: none !important;
   }
 }
