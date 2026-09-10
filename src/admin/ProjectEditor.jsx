@@ -18,7 +18,7 @@ function toFormState(project) {
   return {
     ...emptyProject,
     ...project,
-    tags: project.tags.join(', '),
+    tags: (project.tags ?? []).join(', '),
   };
 }
 
