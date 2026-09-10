@@ -11,7 +11,6 @@ import {
   login,
   logout,
   reorderProjects,
-  runInitialSetup,
   saveProject,
 } from '../services/api.js';
 
@@ -176,7 +175,6 @@ export default function AdminApp() {
         busy={busy}
         error={error}
         onLogin={(email, password) => authenticate(() => login(email, password))}
-        onSetup={(email, password, token) => authenticate(() => runInitialSetup(email, password, token))}
       />
     );
   }

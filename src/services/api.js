@@ -82,10 +82,6 @@ export function login(email, password) {
   return jsonRequest('/auth/login', 'POST', { email, password });
 }
 
-export function runInitialSetup(email, password, setupToken) {
-  return jsonRequest('/auth/setup', 'POST', { email, password, setupToken });
-}
-
 export function logout(csrfToken) {
   return jsonRequest('/auth/logout', 'POST', {}, csrfToken);
 }

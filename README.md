@@ -59,9 +59,9 @@ Complete these steps before deploying the database-backed version.
 
 6. Put that token in `portfolio-config.php` as `setup_token`.
 7. Upload `portfolio-config.php` one directory above the public webroot identified by `FTP_ROUTE`. If Uniweb restricts the file manager to the public root, upload it as `api/private/portfolio-config.php` instead. The API blocks web access to that directory, and deployment preserves the manually uploaded file.
-8. Deploy the application, then visit `https://sandernilsen.no/admin/` and choose **First-time setup**.
-9. Enter the private setup token, your administrator email, and a password containing at least 12 characters.
-10. Remove or rotate the setup token in `portfolio-config.php` after creating the administrator. The setup endpoint also disables itself automatically once an administrator exists.
+8. Deploy the application. For a fresh database only, send a JSON `POST /api/auth/setup` request over HTTPS with `email`, `password` (at least 12 characters), and `setupToken`. The login page no longer includes a first-time setup form.
+9. Sign in at `https://sandernilsen.no/admin/` with the administrator credentials.
+10. Clear the setup token in the deployed `portfolio-config.php` after creating the administrator. The setup endpoint also disables itself automatically once an administrator exists.
 
 The default configuration stores uploads in `uploads/projects/` inside the webroot. The deployment workflow explicitly excludes this directory from deletion.
 
