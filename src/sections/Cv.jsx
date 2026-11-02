@@ -81,6 +81,7 @@ export default function Cv() {
 
   return (
     <section id="cv" className="container" aria-labelledby="cv-title" ref={sectionRef}>
+      <p className="eyebrow section-eyebrow reveal">03 / Background</p>
       <h2 id="cv-title" className="reveal">Experience &amp; education</h2>
       <p className="section-lead reveal">
         My background spans customer service, sales, production, and cleaning.

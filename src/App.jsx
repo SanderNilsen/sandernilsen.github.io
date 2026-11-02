@@ -50,6 +50,7 @@ export default function App() {
       event.preventDefault();
       const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
       target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
+      if (target.id === 'main-content') target.focus({ preventScroll: true });
     };
     document.addEventListener('click', handleClick);
     return () => {
@@ -75,7 +76,7 @@ export default function App() {
   return (
     <>
       <Header theme={theme} onToggleTheme={toggleTheme} />
-      <main>
+      <main id="main-content" tabIndex="-1">
         <Hero />
         <Projects onOpenProject={openProject} />
         <GitHub theme={theme} />

@@ -4,7 +4,7 @@ import GitHubStat from '../components/GitHubStat.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 
 const darkColors = 'title_color=38BDF8&text_color=E6E6F0';
-const lightColors = 'title_color=2563EB&text_color=0B1020';
+const lightColors = 'title_color=0369A1&text_color=0B1020';
 
 export default function GitHub({ theme }) {
   const sectionRef = useRef(null);
@@ -12,6 +12,7 @@ export default function GitHub({ theme }) {
 
   return (
     <section id="github" className="container" aria-labelledby="github-title" ref={sectionRef}>
+      <p className="eyebrow section-eyebrow reveal">02 / Code & contributions</p>
       <h2 id="github-title" className="reveal">GitHub</h2>
       <p className="section-lead reveal" style={{ '--reveal-delay': '80ms' }}>
         A snapshot of what I am building, how often I contribute, and where you can
@@ -24,7 +25,7 @@ export default function GitHub({ theme }) {
           <GitHubStat
             theme={theme}
             darkSrc="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=38BDF8&ring=A78BFA&currStreakLabel=38BDF8&sideNums=E6E6F0&currStreakNum=E6E6F0&sideLabels=A7B0C5"
-            lightSrc="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=2563EB&ring=9333EA&currStreakLabel=2563EB&sideNums=0B1020&currStreakNum=0B1020&sideLabels=475569"
+            lightSrc="https://github-readme-streak-stats.herokuapp.com?user=SanderNilsen&theme=transparent&hide_border=true&background=00000000&fire=0369A1&ring=6D28D9&currStreakLabel=0369A1&sideNums=0B1020&currStreakNum=0B1020&sideLabels=475569"
             label="Contribution streak"
             link="https://github.com/SanderNilsen"
             alt="GitHub contribution streak stats for Sander Nilsen"
@@ -50,7 +51,7 @@ export default function GitHub({ theme }) {
             <GitHubStat
               theme={theme}
               darkSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-              lightSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=2563EB&text_color=0B1020&icon_color=9333EA"
+              lightSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=RainyDays&show_owner=false&hide_border=true&bg_color=00000000&title_color=0369A1&text_color=0B1020&icon_color=6D28D9"
               label="RainyDays repository card"
               link="https://github.com/SanderNilsen/RainyDays"
               alt="Pinned repository: RainyDays"
@@ -60,7 +61,7 @@ export default function GitHub({ theme }) {
             <GitHubStat
               theme={theme}
               darkSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=38BDF8&text_color=E6E6F0&icon_color=A78BFA"
-              lightSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=2563EB&text_color=0B1020&icon_color=9333EA"
+              lightSrc="https://github-readme-stats.vercel.app/api/pin/?username=SanderNilsen&repo=Semester-Project-2-AuctionHouse&show_owner=false&hide_border=true&bg_color=00000000&title_color=0369A1&text_color=0B1020&icon_color=6D28D9"
               label="Auction House repository card"
               link="https://github.com/SanderNilsen/Semester-Project-2-AuctionHouse"
               alt="Pinned repository: Semester-Project-2-AuctionHouse"
@@ -76,7 +77,7 @@ export default function GitHub({ theme }) {
           <GitHubStat
             theme={theme}
             darkSrc="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=E6E6F0&line=38BDF870&point=A78BFA&area=true&hide_border=true&radius=12"
-            lightSrc="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=0B1020&line=2563EB&point=9333EA&area=true&hide_border=true&radius=12"
+            lightSrc="https://github-readme-activity-graph.vercel.app/graph?username=SanderNilsen&bg_color=00000000&color=0B1020&line=0369A1&point=6D28D9&area=true&hide_border=true&radius=12"
             label="Contribution activity graph"
             link="https://github.com/SanderNilsen"
             alt="GitHub activity graph for Sander Nilsen"

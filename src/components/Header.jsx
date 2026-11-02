@@ -54,6 +54,7 @@ export default function Header({ theme, onToggleTheme }) {
 
   return (
     <header className="site-header">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <div
         className={`container nav${menuOpen ? ' nav--open' : ''}`}
         role="navigation"

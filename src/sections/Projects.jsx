@@ -63,6 +63,7 @@ export default function Projects({ onOpenProject }) {
 
   return (
     <section id="projects" className="container" aria-labelledby="projects-title" ref={sectionRef}>
+      <p className="eyebrow section-eyebrow reveal">01 / Selected work</p>
       <h2 id="projects-title" className="reveal">Projects</h2>
       <div className="filters reveal" style={{ '--reveal-delay': '80ms' }} role="toolbar" aria-label="Filter projects">
         {projectFilters.map(([value, label]) => (
